@@ -3,14 +3,14 @@ author: Vince Ganev
  */
 
 //declaration of button properties holder object
-var ButtonProperties = function(){
-    this.width = 15;
-    this.heigth = 30;
-    this.font = "Arial";
-    this.fontSize = 12;
-    this.fontBold = false;
-    this.fontItalic = false;
-};
+//var ButtonProperties = function(){
+//    this.width = 15;
+//    this.heigth = 30;
+//    this.font = "Arial";
+//    this.fontSize = 12;
+//    this.fontBold = false;
+//    this.fontItalic = false;
+//};
 
 ////flag that indicates if the mouse button is still pressed
 //var keepRotating = false;

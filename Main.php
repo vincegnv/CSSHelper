@@ -18,7 +18,7 @@ author: Vince Ganev
                     <div id="header-buttons">
                         <ul>
                             <li>
-                                <a href="Templates/button.php">BUTTON</a>
+                                <a href="Controlers/button.php">BUTTON</a>
                             </li>
                         </ul>
                     </div>
