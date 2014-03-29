@@ -11,7 +11,7 @@ and open the template in the editor.
                <div class="groupWraper">
                     <div class="spinner">
                         <label>Width:&nbsp;</label>
-                        <input type="text" value="70" id="buttonWidth" class="property"/>
+                        <input type="text" value="70" id="buttonWidth" class="property int"/>
                         <ul>
                             <li>
                                 <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'buttonWidth' );"/>
@@ -23,7 +23,7 @@ and open the template in the editor.
                     </div>
                     <div class="spinner">
                         <label>Height:&nbsp;</label>
-                        <input type="text" value="30 " id="buttonHeight" class="property"/>
+                        <input type="text" value="30 " id="buttonHeight" class="property int"/>
                         <ul>
                             <li>
                                 <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'buttonHeight' );"/>
@@ -63,7 +63,7 @@ and open the template in the editor.
                         </div>
                         <div class="spinner">
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;Size:&nbsp;</label>
-                            <input type="text" value="12" id="buttonFontSize" class="property"/>
+                            <input type="text" value="12" id="buttonFontSize" class="property int"/>
                             <label class="floatRight">px</label>
                             <ul>
                                 <li>
@@ -89,7 +89,7 @@ and open the template in the editor.
                 <div class="groupWraper">
                     <div class="spinner">
                         <label>Width:&nbsp;</label>
-                        <input type="text" value="1" id="borderWidth" class="property"/>
+                        <input type="text" value="1" id="borderWidth" class="property int"/>
                         <ul>
                             <li>
                                 <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'borderWidth' );"/>
@@ -121,7 +121,7 @@ and open the template in the editor.
                     </div>
                     <div class="groupWraper" id="cornerTool">
                         <div class="spinner spinnerSmall">
-                            <input type="text" value="0" id="leftTop" class="property"/>
+                            <input type="text" value="0" id="leftTop" class="property int"/>
                             <ul>
                                 <li>
                                     <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'leftTop' );"/>
@@ -132,7 +132,7 @@ and open the template in the editor.
                             </ul>
                         </div >  
                         <div class="spinner spinnerSmall">
-                            <input type="text" value="0" id="rightTop" class="property"/>
+                            <input type="text" value="0" id="rightTop" class="property int"/>
                             <ul>
                                 <li>
                                     <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'rightTop' );"/>
@@ -153,24 +153,24 @@ and open the template in the editor.
 
                         </div>
                         <div class="spinner spinnerSmall">
-                            <input type="text" value="0" id="rightBottom" class="property"/>
-                            <ul>
-                                <li>
-                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'leftBottom' );"/>
-                                </li>
-                                <li>
-                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'leftBottom' );"/>                    
-                                </li>
-                            </ul>
-                        </div >  
-                        <div class="spinner spinnerSmall">
-                            <input type="text" value="0" id="leftBottom" class="property"/>
+                            <input type="text" value="0" id="rightBottom" class="property int"/>
                             <ul>
                                 <li>
                                     <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'rightBottom' );"/>
                                 </li>
                                 <li>
                                     <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'rightBottom' );"/>                    
+                                </li>
+                            </ul>
+                        </div >  
+                        <div class="spinner spinnerSmall">
+                            <input type="text" value="0" id="leftBottom" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'leftBottom' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'leftBottom' );"/>                    
                                 </li>
                             </ul>
                         </div >                     

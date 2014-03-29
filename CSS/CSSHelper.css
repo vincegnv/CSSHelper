@@ -166,7 +166,7 @@ body{
 .spinner{
 
     float: left;
-    /*display: table;*/
+    display: table;
     margin-right: 60px;
     /*padding: 10px;*/
 }
@@ -193,7 +193,7 @@ body{
     border-radius: 5px 0 0 5px !important;
     -webkit-border-radius: 5px 0 0 5px !important;
     -moz-border-radius: 5px 0 0 5px !important;    
-    display: inline-block !important;
+    /*display: inline-block !important;*/
 }
 .spinnerSmall input{
     width: 20px;
@@ -211,9 +211,8 @@ body{
     border-radius: 0 0 5px 0 !important;
     -webkit-border-radius: 0 0 5px 0 !important;
     -moz-border-radius: 0 0 5px 0 !important;
-    /*    border-top-right-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-top-right-radius: 5px;    */
+    /*fix for IE - otherwise the buttons are dislpayed next to each other*/
+    clear: left;
 }
 .spinner input[type="button"]{
     font-size: 6px;
@@ -331,6 +330,9 @@ body{
 }
 
 .property{
+    
+}
+.int{
     
 }
 

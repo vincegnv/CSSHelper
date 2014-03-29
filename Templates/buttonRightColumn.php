@@ -5,7 +5,7 @@ and open the template in the editor.
 <!DOCTYPE html>
     <div id="right-column">
         <div id="buttonContainer" class="rightColumnContainer">
-            <button id="theButton"></button>
+            <input type="button" id="theButton">
         </div>
         <div id="SourceContainer" class="rightColumnContainer">
             <h2>HTML</h2>

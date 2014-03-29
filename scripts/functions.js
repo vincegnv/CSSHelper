@@ -1,6 +1,8 @@
 /* 
 author: Vince Ganev
  */
+////variable to keep input content before key up
+//var valueBeforeKeyUp = "";
 
 //declaration of button properties holder object
 var ButtonProperties = function(){
@@ -40,10 +42,10 @@ ButtonProperties.prototype.getCSS = function(){
         css+="\tborder: "+this.borderWidth+"px "+this.borderStyle+" #"+this.borderColor+";\n";
     }
     if(this.borderLeftTop!==0||this.borderRightTop!==0||this.borderRightBottom!==0||this.borderLeftBottom!==0){
-        var cssRule = this.borderLeftTop+"px "+this.borderRightTop+"px "+this.borderRightBottom+"px "+this.borderLeftBottom+"px";
+        var cssRule = this.borderLeftTop+"px"+($('#lockCorners').is(':checked') ? "":" "+this.borderRightTop+"px "+this.borderRightBottom+"px "+this.borderLeftBottom+"px");
         css+="\tborder-radius: "+cssRule+";\n";
-        css+="\t-webkit-border-radius: "+cssRule+":\n";
-        css+="\t-moz-border-radius: "+cssRule+":\n";
+        css+="\t-webkit-border-radius: "+cssRule+";\n";
+        css+="\t-moz-border-radius: "+cssRule+";\n";
     }
     css+="}";
    return css;
@@ -69,13 +71,19 @@ ButtonProperties.prototype.update = function(){
     this.borderStyle = $('#borderStyle').val();
     this.borderColor = $('#borderColor').val();
     this.borderLeftTop = $('#leftTop').val();
-    this.borderRightTop = $('#rightTop').val();
-    this.borderRightBottom = $('#rightBottom').val();
-    this.borderLeftBottom = $('#leftBottom').val();
+    if($('#lockCorners').is(':checked')){
+        this.borderRightTop = this.borderLeftTop;
+        this.borderRightBottom = this.borderLeftTop;
+        this.borderLeftBottom = this.borderLeftTop;
+    } else{
+        this.borderRightTop = $('#rightTop').val();
+        this.borderRightBottom = $('#rightBottom').val();
+        this.borderLeftBottom = $('#leftBottom').val();
+    }
 };
 
 ////flag that indicates if the mouse button is still pressed
-//var keepRotating = false;
+var keepRotating = false;
 
 //changes the value in the spinner input
 function spinnerRotate(step, id){
@@ -106,6 +114,8 @@ function updateTheButton(button){
             '-webkit-border-radius': tl + " " + tr + " " + br + " " + bl,
             'border-radius': tl + "px " + tr + "px " + br + "px " + bl+"px"});
 }
+
+//function isInt()
 ////stops the spinner
 //function spinnerStop(){
 //    keepRotating = false;
