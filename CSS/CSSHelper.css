@@ -27,6 +27,7 @@ body{
     background-color: #0E398B;
     color: #FFFFFF;
     padding: 0;
+    z-index: 10;
     
 }
 #header-logo{
@@ -52,17 +53,23 @@ body{
     width: 400px;
     text-align: center;
 }
-#header-buttons ul{
+#header-buttons-right{
+    float: right;
+}
+#header-buttons ul, #header-buttons-right ul{
     list-style: none outside none;
     margin: 0;
     padding: 0;
+    /*display: inline;*/
+    /*float: left;*/
 }
-#header-buttons li{
+#header-buttons li, #header-buttons-right li{
     display: inline;
+    float: left;
 }
-#header-buttons a{
+#header-buttons a, #header-buttons-right a{
     color: #FFFFFF;
-    width: 70px;
+    width: auto;
     height: 38px;
     line-height: 38px;
     margin-top: 2px;
@@ -71,18 +78,26 @@ body{
     display: block;
     font-weight: bold;
     text-shadow: 0 1px #333333;
+    padding: 0 5px;
 }
-#header-buttons a:hover{
+#header-buttons a:hover, #header-buttons-right a:hover{
     background-color: #003162;
     box-shadow: 0 0 3px #002953 inset;
+    position: relative;
+    top: -1px;
+    left: -1px;
+    color: yellowgreen;
 }
-
+#header-buttons a:active, #header-buttons-right a:active{
+    top: 0;
+    left: 0;    
+}
 #content{
     width: 1000px;
     margin: auto;
     /*border: 1px solid;*/
 }
-#title{
+.title{
     text-align: center;
     background-color: #E15A00;
     color: #FFFFFF;
@@ -95,13 +110,12 @@ body{
     float: left;
     margin-right: 16px;
     width: 492px;
-    z-index: -1;
+    /*z-index: -1;*/
     /*background-color: #FFFFFF;*/
 }
 #right-column{
     float: left;
     width: 492px;
-    z-index: -1;
 }
 
 .propertyGroup > :first-child, .rightColumnContainer > :first-child{
@@ -125,6 +139,10 @@ body{
     width: 99%;
     text-align: center;
 }
+.rightColumnContainer{
+    /*position: relative;*/
+    /*z-index: -1;*/
+}
 .propertyGroup h2, .rightColumnContainer h2{
     color: #004785;
     font-size: 20px;
@@ -139,22 +157,28 @@ body{
 }
 .rightColumnContainer h2{
     margin: 0;
+    border-bottom: 4px solid #E1EAFB;    
+}
+.rightColumnContainer h2:not(:first-child){
+
+    border-top: 4px solid #E1EAFB;    
 }
 .rightColumnContainer textarea{
     overflow: auto;
+
 /*    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;*/
-    border-top: 4px solid #E1EAFB;
-    border-bottom: 4px solid #E1EAFB;
+
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     height: 100%;
     width: 100%;
     margin: auto;
+    /*white-space: nowrap;*/
     
 }
-.propertyGroup input,select{
+.propertyGroup input,select, .rightColumnContainer input{
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -165,7 +189,7 @@ body{
 }
 .spinner{
 
-    float: left;
+    /*float: left;*/
     display: table;
     margin-right: 60px;
     /*padding: 10px;*/
@@ -248,6 +272,9 @@ body{
 .floatRight{
     float: right !important;
 }
+.floatLeft{
+    float: left;
+}
 
 .clear{
     clear: both;
@@ -284,21 +311,21 @@ body{
     text-align: center;
     /*background-color: white;*/
     position: relative;
-    z-index: -1;
+/*    z-index: 1;*/
 }
-#theButton{
-/*    margin-top: 10%;*/
-    width: 70px;
-    height: 30px;
-    font-family: "Arial";
-    font-size: 12pt;
+.myButton{
+    /*margin-top: 10%;*/
+    /*width: 70px;*/
+    /*height: 30px;*/
+    /*font-family: "Arial";*/
+    /*font-size: 12pt;*/
     position: absolute;
-    margin-top: -15px;
-    margin-left: -35px;
+    /*margin-top: -15px;*/
+    /*margin-left: -35px;*/
     top: 50%;
     left: 50%;
     /*border-width: 0;*/
-    border:1px solid #000000;
+    /*border:1px solid #000000;*/
 }
 
 #buttonText{
@@ -328,6 +355,11 @@ body{
     margin-top: 10px;
     margin-bottom: auto;
 }
+#buttonSave{
+    float:right;
+    margin: 6px 5px 0 0;
+    /*z-index: 100;*/
+}
 
 .property{
     
@@ -340,3 +372,142 @@ body{
     width: 60px;
     text-align: center;
 }
+
+.elementContainer{
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    height: 200px;
+/*    width: 200px;*/
+    border: 1px #000000 solid;
+}
+.btnDelete, .btnOpen{
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.btnOpen{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+.btnDelete{
+    position: absolute;
+    bottom: 0;
+    float: left;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    text-decoration: none;
+    line-height: 16px;
+    display: block;
+    text-align: center;
+    height: 16px;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    padding: 1px 6px;
+    margin: 2px;
+    border: 2px outset buttonface;
+    background-color: buttonface;
+
+}
+
+.plus-minus{
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+    width: 20px;
+    text-align: center;
+    font-family: Courier;
+    font-size: 150%;
+}
+
+.remove-margin{
+    margin: 0;
+}
+
+#palette{
+    padding: 10px;
+}
+#palette input{
+    width: 60px;
+    text-align: center;
+}
+
+#paletteColors input{
+    cursor: pointer;
+    margin: 1px;
+    float: left;    
+}
+
+.redText{
+    color: #FF0000;
+    /*border: 1px #FF0000 solid;*/
+
+}
+
+#savePageMsg{
+    padding-top: 100px;
+    font-size: 120%;
+    width: 1000px;
+    /*background: #FFFFFF;*/
+    margin: 0 auto;
+    text-align: center;
+    
+}
+#backButton{
+    width: 70px;
+    height: 30px;
+    /*height: 30px;*/
+    background-color: #0E398B;
+    /*font-family: Ariel;*/
+    /*font-size: 12px;*/
+    color: #FFFFFF;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #000001;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    text-decoration: none;
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    margin: 10px auto;
+    box-shadow: 2px 2px 5px #888888;
+}
+#savePageMsg input[type=submit]{
+    /*width: 70px;*/
+    height: 30px;
+    /*height: 30px;*/
+    background-color: #0E398B;
+    /*font-family: Ariel;*/
+    /*font-size: 12px;*/
+    color: #FFFFFF;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #000001;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    text-align: center;
+    box-shadow: 2px 2px 5px #888888;
+    margin-left: 15px;
+}
+#backButton:active, #savePageMsg input[type=submit]:active{
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+#backButton:hover, #savePageMsg input[type=submit]:hover{
+    color: yellowgreen;
+}
+
+
+

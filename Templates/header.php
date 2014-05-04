@@ -2,6 +2,11 @@
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    define("APP_ROOT", 'c:/xampp/htdocs/CSSHelper/');
+    $path = APP_ROOT . 'CSS/CSSHelper.css';
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,10 +27,26 @@ and open the template in the editor.
                     <div id="header-buttons">
                         <ul>
                             <li>
-                                <a href="Templates/button.php">BUTTON</a>
+                                <a href="../Controlers/button.php">BUTTON</a>
+                            </li>
+<!--                            <li>
+                                <a href="..">SPINNER INPUT</a>
+                            </li>     
+                            <li>
+                                <a href="..">SLIDER</a>
+                            </li>                            -->
+                        </ul>
+                    </div>
+                    <div id="header-buttons-right">
+                        <ul>
+                            <li>
+                                <a href="../Controlers/library.php">LIBRARY</a>
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div>
+                    <a href="../Controlers/demo.php" style="position: absolute; right: 0; margin-right: 20px; cursor: pointer; width: 40px; height:20px;">Test</a>            
                 </div>
             </div>
         </div>

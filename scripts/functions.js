@@ -1,128 +1,226 @@
 /* 
 author: Vince Ganev
  */
-////variable to keep input content before key up
-//var valueBeforeKeyUp = "";
+
+//            prefixes for all the browsers for css3
+var browsers = ['-moz-','-webkit-','-ms-','-o-',''];
 
 //declaration of button properties holder object
 var ButtonProperties = function(){
-    this.width = 15;
-    this.height = 30;
-    this.font = "Arial";
-    this.fontSize = 12;
-    this.fontBold = "";
-    this.fontItalic = "";
+    this.type='input';
+    this.buttonWidth = 15;
+    this.buttonHeight = 30;
+    this.buttonColor='';
+    this.buttonFont = "Arial";
+    this.buttonFontSize = 12;
+    this.bold = "";
+    this.italic = "";
     this.fontColor = "000000";
-    this.text = "";
+    this.buttonText = "";
     this.borderWidth = 1;
     this.borderStyle="solid";
     this.borderColor = "000000";
-    this.borderLeftTop = 0;
-    this.borderRightTop = 0;
-    this.borderRightBottom = 0;
-    this.borderLeftBottom = 0;
+    this.leftTop = 0;
+    this.rightTop = 0;
+    this.rightBottom = 0;
+    this.leftBottom = 0;
+    this.gradientColors = [];
+    this.gradientAngle = 0;
+    this.gradientType = '';
+};
+ButtonProperties.prototype.addGradientColor = function(color){
+    if(this.gradientColors === undefined){
+        this.gradientColors=[];
+    }
+    this.gradientColors.push('#'+color);
+    return this.gradientColors.length;
+};
+ButtonProperties.prototype.removeGradientColor = function(color){
+    var gc = this.gradientColors;
+    if(gc!==undefined&&gc.length>=1){
+        var i = gc.indexOf(color);
+//        if color not in the array (when color=''), index of returns -1 and deletes the last element
+        gc.splice(gc.indexOf('#'+color),1);
+    }
+    return gc.length;
+};
+ButtonProperties.prototype.getGradientColorsCount=function(){
+    if(this.gradientColors===undefined){
+        return 0;
+    }
+    return this.gradientColors.length;
 };
 ButtonProperties.prototype.getHTML = function(){
-    return "<input type=\"button\" class=\"myButton\" value=\""+this.text+"\">";
+    switch(this.type){
+        case "link":
+            return "<a class=\"myButton\" id=\"myButton\" href=\"#  \">"+this.buttonText+"</a>";
+            break;        
+        case "button":
+            return "<button class=\"myButton\" id=\"myButton\" type=\"button\">"+this.buttonText+"</button>";
+            break;
+        default:
+            return "<input type=\"button\" class=\"myButton\" id=\"myButton\" value=\""+this.buttonText+"\">";            
+            break;
+    }
 };
+
 ButtonProperties.prototype.getCSS = function(){
     var css = ".myButton{\n"+
-                            "\twidth: "+this.width+"px;\n"+
-                            "\theight: "+this.height+"px;\n"+
-                            "\tfont-family: "+this.font+";\n"+
-                            "\tfont-size: "+this.fontSize+"px\n"+
-                            "\tcolor: #"+this.fontColor+";\n";
-    if(this.fontBold!==""){
-        css+="\tfont-weight: "+this.fontBold+";\n";
+                            "\twidth: "+this['buttonWidth']+"px;\n"+
+                            "\theight: "+this['buttonHeight']+"px;\n"+
+                            "\tbackground-color: "+"#"+this.buttonColor+";\n"+
+                            "\tfont-family: "+this['buttonFont']+";\n"+
+                            "\tfont-size: "+this['buttonFontSize']+"px;\n"+
+                            "\tcolor: #"+this['fontColor']+";\n";
+    if(this['bold']!==""){
+        css+="\tfont-weight: "+this['bold']+";\n";
     }
-    if(this.fontItalic!==""){
-        css+="\tfont-style: "+this.fontItalic+";\n";
+    if(this['italic']!==""){
+        css+="\tfont-style: "+this['italic']+";\n";
     }
-    if(this.borderWidth!==0){
-        css+="\tborder: "+this.borderWidth+"px "+this.borderStyle+" #"+this.borderColor+";\n";
-    }
-    if(this.borderLeftTop!==0||this.borderRightTop!==0||this.borderRightBottom!==0||this.borderLeftBottom!==0){
-        var cssRule = this.borderLeftTop+"px"+($('#lockCorners').is(':checked') ? "":" "+this.borderRightTop+"px "+this.borderRightBottom+"px "+this.borderLeftBottom+"px");
+//    if(this['borderWidth']!=='0'){
+    css+="\tborder-width: "+this['borderWidth']+"px;\n";
+    css+="\tborder-style: "+this['borderStyle']+";\n";
+    css+="\tborder-color: #"+this['borderColor']+";\n";
+//    }
+    if((this.leftTop!=='0')||(this.rightTop!=='0')||(this.rightBottom!=='0')||(this.leftBottom!=='0')){
+        var cssRule='';
+        if($('#lockCorners').is(':checked')){
+            cssRule=this.leftTop+"px "+this.leftTop+"px "+this.leftTop+"px "+this.leftTop+"px";
+        } else{
+            cssRule=this.leftTop+"px "+this['rightTop']+"px "+this['rightBottom']+"px "+this['leftBottom']+"px";
+        }
         css+="\tborder-radius: "+cssRule+";\n";
         css+="\t-webkit-border-radius: "+cssRule+";\n";
         css+="\t-moz-border-radius: "+cssRule+";\n";
     }
+    if(this.type==='link'){
+        css+="\ttext-decoration: none;\n";
+        css+="\tline-height: "+this.buttonHeight+"px;\n";
+        css+="\tdisplay: block;\n";
+        css+="\ttext-align: center;\n";
+        
+    }
+    if(this.gradientColors!==undefined&&this.gradientColors.length>1){
+        var gType = $("input[name='gradientType']:checked").val();
+        var str=this.gradientColors.toString();
+        if(gType=='linear'){
+            str = this.gradientAngle+'deg,'+str;
+        }
+        for(var i=0; i<browsers.length; i++){
+            css+='\tbackground-image: '+browsers[i]+gType+'-gradient('+str+');\n';
+        }
+        
+    }
     css+="}";
    return css;
 };
+
 ButtonProperties.prototype.update = function(){
-    this.width = $('#buttonWidth').val();
-    this.height = $('#buttonHeight').val();
-    this.font = $('#buttonFont').val();
-    this.fontSize = $('#buttonFontSize').val();
-    this.fontColor = $('#fontColor').val();
+    var keys = Object.keys(this);
+    for(var i = 0; i<keys.length; i++){
+//        because type is not id and it is first in the array
+        if(i>0){
+            this[keys[i]] = $('#'+keys[i]).val();
+        } else{
+            this[keys[i]] = $("input[name='bType']:checked").val();
+        }
+    }
+    //do checkboxes
     if($('#bold').is(':checked')){
-        this.fontBold = "bold";
+        this.bold = "bold";
     } else{
-        this.fontBold = "";
+        this.bold = "";
     }
     if($('#italic').is(':checked')){
-        this.fontItalic = "italic";
+        this.italic = "italic";
     } else{
-        this.fontItalic = "";
-    }
-    this.text = $('#buttonText').val();
-    this.borderWidth = $('#borderWidth').val();
-    this.borderStyle = $('#borderStyle').val();
-    this.borderColor = $('#borderColor').val();
-    this.borderLeftTop = $('#leftTop').val();
+        this.italic = "";
+    }   
+    //do the corners
     if($('#lockCorners').is(':checked')){
-        this.borderRightTop = this.borderLeftTop;
-        this.borderRightBottom = this.borderLeftTop;
-        this.borderLeftBottom = this.borderLeftTop;
-    } else{
-        this.borderRightTop = $('#rightTop').val();
-        this.borderRightBottom = $('#rightBottom').val();
-        this.borderLeftBottom = $('#leftBottom').val();
+        this.rightTop = this.leftTop;
+        this.rightBottom = this.leftTop;
+        this.leftBottom = this.leftTop;
+    }    
+    //do gradient colors
+    var colors = $('#paletteColors').children('input');
+    this.gradientColors = [];   
+    for(var i = 0; i<colors.length; i++){
+        this.gradientColors[i] = '#'+colors.eq(i).val();
     }
+    //do gradient type
+    this.gradientType = $("input[name='gradientType']:checked").val();
 };
 
-////flag that indicates if the mouse button is still pressed
-var keepRotating = false;
 
 //changes the value in the spinner input
 function spinnerRotate(step, id){
-//    if(!$(this).is(':disabled')){
-//        keepRotating = true;
-        $('#'+id).val(parseInt($('#'+id).val())+step).trigger('change');
-//    }
+    window.timer = window.setInterval(function(){
+        $('#'+id).val(parseInt($('#'+id).val())+step).trigger('change');  
+    },110);
+}
+
+function stopSpinner(){
+    window.clearInterval(window.timer);
 }
 
 function updateTheButton(button){
-    var b = $('#theButton');
-    b.css('font-family',button.font);
-    b.css('color', "#"+button.fontColor);
-    b.css('font-weight', button.fontBold);
-    b.css('font-style', button.fontItalic);
-    b.css({'width':button.width+'px', 'margin-left':(-button.width/2)+'px'});
-    b.css({'height':button.height+'px', 'margin-top':(-button.height/2)+'px'});
-    b.attr('value', button.text);
-    b.css({'font-size':button.fontSize+'pt'});
-    b.css('border-width',button.borderWidth+"px");
-    b.css('border-style',button.borderStyle);
-    b.css('border-color',"#"+button.borderColor);
-    var tl = button.borderLeftTop;
-    var tr = button.borderRightTop;
-    var br = button.borderRightBottom;
-    var bl = button.borderLeftBottom;
+    $('#buttonContainer').html(button.getHTML());
+    var b = $('#myButton');
+    b.css('z-index', 1);
+    b.css('font-family',button['buttonFont']);
+    b.css('color', "#"+button['fontColor']);
+    b.css('font-weight', button['bold']);
+    b.css('font-style', button['italic']);
+    b.css({'width':button['buttonWidth']+'px', 'margin-left':(-button['buttonWidth']/2)+'px'});
+//    adjusting the container div
+    if(button.buttonHeight>130){
+        $("#buttonContainer").height(parseInt(button.buttonHeight)+20);
+    } else{
+        $("#buttonContainer").height(150);  
+    }         
+
+    b.css({'height':button['buttonHeight']+'px', 'margin-top':(-button['buttonHeight']/2)+'px'});
+    b.css('background-color', "#"+button.buttonColor);
+    if(button.type==='input'){
+        b.attr('value', button['buttonText']);  
+    } else{
+        b.html(button.buttonText);
+    }
+    b.css({'font-size':button['buttonFontSize']+'pt'});
+    b.css('border-width',button['borderWidth']+"px");
+    b.css('border-style',button['borderStyle']);
+    b.css('border-color',"#"+button['borderColor']);
+    var tl = button['leftTop'];
+    var tr = button['rightTop'];
+    var br = button['rightBottom'];
+    var bl = button['leftBottom'];
     b.css({'-moz-border-radius': tl + " " + tr + " " + br + " " + bl,
             '-webkit-border-radius': tl + " " + tr + " " + br + " " + bl,
             'border-radius': tl + "px " + tr + "px " + br + "px " + bl+"px"});
+    if(button.type==='link'){
+        b.css('text-decoration','none');
+        b.css('line-height',button.buttonHeight+"px");
+    }
+//    gradient
+    if(button.getGradientColorsCount()>=2){
+        var str=button.gradientColors.toString();
+        if(button.gradientType=='linear'){
+            str = button.gradientAngle+'deg,'+str;
+        }
+        for(var i = 0; i<browsers.length; i++){
+            b.css('background-image',browsers[i]+button.gradientType+'-gradient('+str+')');                   
+        }
+}
 }
 
-//function isInt()
-////stops the spinner
-//function spinnerStop(){
-//    keepRotating = false;
-//}
+function isInt(n){
+    var intRegex = /^\d+$/;
+    if(!intRegex.test(n)){
+        return false;
+    }    
+    return true;
+}
 
-//draws the button inside the div that was rassed as a parameter
-//function drawButton(div){
-//    div.innerHTML = "<input type=\"button\" "
-//}
 

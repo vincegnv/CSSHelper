@@ -7,7 +7,7 @@
     <body>
         <h1>CSS Helper</h1>
         <?php
-            header('Location: Main.php');
+            header('Location: Controlers/button.php');
         ?>
     </body>
 </html>
