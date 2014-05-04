@@ -19,7 +19,7 @@ author: Vince Ganev
             $divWidth = 120;
         }
         echo '<div class="elementContainer" style="width: ' . $divWidth . 'px">';
-        echo '<form action="button.php" method="post">';
+        echo '<form action="button.php" method="get">';
         $html = replaceClass($row['html'], 'myButton');
         $html = removeId($html);
         $css = setMargins($css);

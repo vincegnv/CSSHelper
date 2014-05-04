@@ -8,11 +8,11 @@ author: Vince Ganev
 
             session_start();
            
-            if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['id'])){
+            if($_SERVER["REQUEST_METHOD"]=="GET" && isset($_GET['id'])){
                 //saves the id of the element that is opened from the library to the SESSION
-                $_SESSION['fromLibrary'] = $_POST['id'];
+                $_SESSION['fromLibrary'] = $_GET['id'];
                 
-                $element = getElementById($_POST['id']);
+                $element = getElementById($_GET['id']);
                 $css = getCSS($element[0]['css']);
                 $html = $element[0]['html'];
                 $type = getButtonType($html);

@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
         <file>file:/C:/xampp/htdocs/CSSHelper/includes/functions.php</file>
         <file>file:/C:/xampp/htdocs/CSSHelper/Templates/buttonLeftColumn.php</file>
-        <file>file:/C:/xampp/htdocs/CSSHelper/Controlers/button.php</file>
         <file>file:/C:/xampp/htdocs/CSSHelper/Templates/buttonRightColumn.php</file>
         <file>file:/C:/xampp/htdocs/CSSHelper/Controlers/save_code.php</file>
         <file>file:/C:/xampp/htdocs/CSSHelper/CSS/CSSHelper.css</file>
+        <file>file:/C:/xampp/htdocs/CSSHelper/scripts/functions.js</file>
+        <file>file:/C:/xampp/htdocs/CSSHelper/Controlers/button.php</file>
     </open-files>
 </project-private>

@@ -36,6 +36,7 @@ author: Vince Ganev
                 echo "<span>";
                 echo '<p>Element already exists.</p>';
                 echo "</span>";
+                echo "";
                 echo "<a id=\"backButton\" href=\"#\" onclick=\"history.back();\">Go Back</a>";
                 echo "</div>";                
             } else if(isset($_SESSION['fromLibrary'])&&$_SESSION['fromLibrary']!==false){
