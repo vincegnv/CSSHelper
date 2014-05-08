@@ -1,0 +1,57 @@
+/* 
+    Document   : slider
+    Created on : May 8, 2014, 1:32:43 PM
+    Author     : Vince
+    Description:
+        Styles the custom slider control.
+*/
+
+.sliderWraper{
+    /*margin: 200px auto;*/
+    /*width: 300px;*/
+    text-align: center;
+    float: left;
+}
+.sliderTop{
+    /*width: 300px;*/
+    height: 11px;
+    margin: 0 auto;
+}
+.sliderBody{
+    /*width: 300px;*/
+    /*margin: 0 auto;*/
+    float:left;
+    height: 30px;
+}
+.sliderBar{
+    width: 200px;
+    height: 10px;
+    border-radius: 5px;
+    background:#EEF4FB;
+    float: left;
+    margin: 9px 5px 5px 5px;
+    /*border: .5px solid #E1EAFB;*/
+}
+
+.sliderThumb{
+    width: 18px;
+    height: 18px;
+    background:#0E398B;
+    border-radius: 4px;
+    margin-top: -4px;
+    cursor: pointer;
+}
+.sliderBody label{
+    float: left;
+    margin-top: 5px;
+    /*width: 30px;*/
+}
+.sliderBody label:first-child{
+    text-align: right;
+}
+.sliderValue{
+    clear: both;
+    width: 60px;
+    text-align: center;
+}
+

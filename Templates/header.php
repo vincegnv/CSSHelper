@@ -13,9 +13,8 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CSS Helper</title>
         <link rel="stylesheet" type="text/css" href="../CSS/CSSHelper.css">
-        <script type="text/javascript" src="../scripts/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="../scripts/functions.js"></script>
-        <script src="../jscolor/jscolor.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="../CSS/slider.css">        
+
     </head>
     <body>
         <div id="headerspace">

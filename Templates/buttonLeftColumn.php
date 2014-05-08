@@ -204,7 +204,7 @@ author: Vince Ganev
             <div id="gradientContainer" class="propertyGroup">
                 <h2>Gradient<span class="plus-minus">-</span></h2>
                 <div>
-                    <div>
+                    <div style="width: 300px; margin: 0 auto;">
                         <div class="groupWraper">
                             <input type="radio" name="gradientType" id="linear" value="linear" class="property" <?= isset($gradientType)?($gradientType=='linear')?'checked':'':'checked'?>/>
                             <label>Linear</label>
@@ -217,10 +217,11 @@ author: Vince Ganev
                     
 
                     <div class="clear">&nbsp;</div>
-                    <div class="groupWraper">
+                      
+                    <div class="groupWraper" style="margin-right: 60px;">
                         <input type="button" value="Add" title="Add color to gradient" id="addToGradient"/>
                         <input class="color" value="" id="gradientColor"/> 
-                        <div class="spinner" style="margin:10px;" id="gradientAngleContainer">
+<!--                        <div class="spinner" style="margin:10px;" id="gradientAngleContainer">
                             <label>Angle&nbsp;</label>
                             <input type="text" value="<?= isset($gradientAngle)?$gradientAngle:0 ?>" id="gradientAngle" class="property int"/>
                             <ul>
@@ -231,12 +232,21 @@ author: Vince Ganev
                                     <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'gradientAngle');"/>                    
                                 </li>
                             </ul>
-                        </div>
+                        </div>-->
+
                     </div>
-                    
-                    <div id="palette" style="float:right;margin-right:15px;">
+                    <?php
+                        $angle = 0;
+                        if(isset($gradientAngle)){
+                            $angle = $gradientAngle;
+                        }
+                        $input = '        <input type="text" class="sliderValue property int" id="gradientAngle" value="'.$angle.'" />';
+                        drawSlider(0, 360, 180, $input, 'Angle: ');
+                    ?>  
+                    <div class="clear">&nbsp;</div>                
+                    <div id="palette" class="groupWraper" style="width:300px;">
                         <input type="button" value="Remove" title="Remove the last color" id="removeFromGradient" style="float: left; margin-right:3px;"/>
-                        <div id="paletteColors" style="float:left;width:198px;">
+                        <div id="paletteColors" style="float:left;width:340px;">
                             <?php
                                 if(isset($gradientColors)){
                                     foreach($gradientColors as $color){

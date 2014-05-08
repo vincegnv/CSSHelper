@@ -35,7 +35,8 @@ function insertElement($type, $html, $css, $js){
         $db = dbConnect();
         $statement = $db->prepare($query);
         if ($statement === false){
-            trigger_error($db->errorInfo()[2], E_USER_ERROR);
+            $err = $db->errorInfo();
+            trigger_error($err[2], E_USER_ERROR);
             exit;
         }    
         if($statement->execute()==false){
@@ -54,7 +55,8 @@ function updateElement($id, $type, $html, $css, $js){
         $db = dbConnect();
         $statement = $db->prepare($query);
         if ($statement === false){
-            trigger_error($db->errorInfo()[2], E_USER_ERROR);
+            $err = $db->errorInfo();
+            trigger_error($err[2], E_USER_ERROR);
             return false;
         }    
         if($statement->execute()==false){
@@ -70,7 +72,8 @@ function getElementsByType($type){
     $db = dbConnect();
     $statement = $db->prepare($query);
     if($statement === false){
-        trigger_error($db->errorInfo()[2], E_USER_ERROR);
+            $err = $db->errorInfo();
+            trigger_error($err[2], E_USER_ERROR);
         exit;        
     }
     if($statement->execute()){
@@ -87,7 +90,8 @@ function getElementById($id){
     $db = dbConnect();
     $statement = $db->prepare($query);
     if($statement === false){
-        trigger_error($db->errorInfo()[2], E_USER_ERROR);
+            $err = $db->errorInfo();
+            trigger_error($err[2], E_USER_ERROR);
         exit;        
     }
     if($statement->execute()){
@@ -104,7 +108,8 @@ function deleteElement($id){
     $db = dbConnect();
     $statement = $db->prepare($query);
     if($statement === false){
-        trigger_error($db->errorInfo()[2], E_USER_ERROR);
+            $err = $db->errorInfo();
+            trigger_error($err[2], E_USER_ERROR);
         return false;        
     }
     if($statement->execute()){
@@ -121,7 +126,8 @@ function elementExists($type, $html, $css, $js){
     $db = dbConnect();
     $statement = $db->prepare($query);
     if($statement === false){
-        trigger_error($db->errorInfo()[2], E_USER_ERROR);
+            $err = $db->errorInfo();
+            trigger_error($err[2], E_USER_ERROR);
         return false;        
     }
     if($statement->execute()){
@@ -255,6 +261,25 @@ function getGradientType($line){
     return $type;
 }
 
+//draws a custom slider control with styling defined in slider.css and functionality defined in slider.js
+function drawSlider($min, $max, $sliderWidth, $input, $inputLabel){
+    echo '<div class="sliderWraper">';
+    echo '    <div class="sliderBody">';
+    echo '        <label>'.$min.'</label>';
+
+    echo '          <div class="sliderBar" style="width:'.$sliderWidth.'px">';
+    echo '            <div class="sliderThumb">&nbsp;</div>';
+    echo '          </div>';
+
+    echo '        <label>'.$max.'</label>';
+    echo '    </div>';
+    echo '    <!--<div class="sliderTop"></div>-->';
+    echo '    <div style="clear: left; text-align:left">';
+    echo $inputLabel;
+    echo $input;
+    echo '    </div>';      
+    echo '</div>';
+}
 ?>
 
 
