@@ -11,7 +11,10 @@ author: Vince Ganev
             //do overwrite/new
             $html = $_SESSION['HTMLsource'];
             $css = $_SESSION['CSSsource'];
-            $js = $_SESSION['JSsource'];
+            $js = '';
+            if(isset($_SESSION['JSsource'])){
+               $js = $_SESSION['JSsource']; 
+            }
             $type=$_SESSION['type']; 
             unset($_SESSION['HTMLsource']);
             unset($_SESSION['CSSsource']);
@@ -28,7 +31,10 @@ author: Vince Ganev
         //comes from creation page
             $html = $_POST['HTMLsource'];
             $css = $_POST['CSSsource'];
-            $js = $_POST['JSsource'];
+            $js = '';
+            if(isset($_SESSION['JSsource'])){
+               $js = $_SESSION['JSsource']; 
+            }
             $type=$_POST['type'];
             //check if the same elelement exists in the database            
             if(elementExists($type, $html, $css, $js)){

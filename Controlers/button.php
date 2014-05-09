@@ -37,6 +37,16 @@ author: Vince Ganev
                         $gradientColors = array_values($gradientColors);
                     }
                 }
+                //do box shadow
+                if(isset($acss['box-shadow'])){
+                    $bShadow = getBoxShadow($acss['box-shadow']);
+                    $insetBoxShadow = $bShadow['inset'];
+                    $horizontalBoxShadow = $bShadow['horizontal'];
+                    $verticalBoxShadow = $bShadow['vertical'];
+                    $blurBoxShadow = $bShadow['blur'];
+                    $spreadBoxShadow = $bShadow['spread'];
+                    $colorBoxShadow = $bShadow['color'];
+                }
             } else{
                 $_SESSION['fromLibrary'] = false;
             }
@@ -106,12 +116,6 @@ author: Vince Ganev
                                     return;
                                 }
                                 break;
-                            case "gradientColor":
-                                if(!isInt($(this).val())||$(this).val()<0 || $(this).val()>360){
-                                    $(this).val(button.gradientAngle);
-                                    return;
-                                }                                
-                                break;
                             case "italic":
                                 if($(this).is(':checked')){
                                   button['italic'] = "italic";
@@ -154,10 +158,35 @@ author: Vince Ganev
                                     button['leftBottom'] = curve;                                
                                 }
                                 break;
+                            case "gradientAngle":
+                                if(!isInt($(this).val())||$(this).val()<0 || $(this).val()>360){
+                                    $(this).val(button.gradientAngle);
+                                    $(this).trigger('change');
+                                    return;
+                                }                                
+                                break;
+                            case "horizontalBoxShadow":
+                            case "verticalBoxShadow":
+                            case "blurBoxShadow":
+                            case "spreadBoxShadow":
+                                if(!isInt($(this).val())){
+                                    $(this).val(button[id]);
+                                    return;
+                                }
+                                break;
+                        }//end switch
+                        //update the button object
+                        if($(this).prop('type')==='checkbox'){
+                            if($(this).is(':checked')){
+                                button[id] = $(this).val();
+                            } else{
+                                button[id] = '';
+                            }
+                        } else{
+                            button[id] = $(this).val();                        
                         }
-                        //update
-                        button[id] = $(this).val();                        
                     }
+                    //update the button
                     updateTheButton(button);
                     $('#HTMLsource').val(button.getHTML());
                     $('#CSSsource').val(button.getCSS());
@@ -176,7 +205,7 @@ author: Vince Ganev
                 $(".spinner input[type='button']").on('mouseout',stopSpinner);
 
                 //makes textareas readonly, but still scrollable
-                $('#SourceContainer').keypress(function(event){
+                $('#SourceContainer, #paletteColors input').keypress(function(event){
                     event.preventDefault();
                 });
                 
@@ -195,13 +224,11 @@ author: Vince Ganev
                //all hidden
                $('.plus-minus').trigger('click');
                
-               
+               //adds a color to the gradient palette
                 $('#addToGradient').click(function(){
-//                    if($('#paletteColors').children('input').length%3===0&&$('#paletteColors').children('input').length>0){
-//                        $('#paletteColors').html($('#paletteColors').html()+'<br/>');
-//                    }
                     $('#paletteColors').html($('#paletteColors').html()+
-                        '<input type="text" readonly="readonly" style="background:#'+$('#gradientColor').val()+';" value="'+$('#gradientColor').val()+'"/>');
+                        '<input type="text" readonly="readonly" style="background:#'+$('#gradientColor').val()+
+                        ';" value="'+$('#gradientColor').val()+'"/>');
                     if(button.addGradientColor($('#gradientColor').val())>1){
                         updateTheButton(button);
                         $('#CSSsource').val(button.getCSS());

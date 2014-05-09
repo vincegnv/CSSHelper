@@ -5,10 +5,7 @@ author: Vince Ganev
             <h1>Button Generator</h1>
         </div>
         <div id="left-column">
-<!--            <div class="propertyGroup">
-                <h2>Type<span class="plus-minus">-</span></h2>
 
-            </div>-->
             <div class="propertyGroup" id="size">
                 <h2>Basics<span class="plus-minus">-</span></h2>
                <div class="groupWraper">
@@ -85,7 +82,7 @@ author: Vince Ganev
                         <div class="spinner floatLeft">
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;Size:&nbsp;</label>
                             <input type="text" value="<?= isset($acss)?$acss['font-size']:12?>" id="buttonFontSize" class="property int"/>
-                            <label class="floatRight">px</label>
+                            <!--<label class="floatRight">px</label>-->
                             <ul>
                                 <li>
                                     <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'buttonFontSize' );"/>
@@ -107,8 +104,8 @@ author: Vince Ganev
             <div class="propertyGroup" id="border">
                 <h2>Border<span class="plus-minus">-</span></h2>
                 <div>
-                    <div class="groupWraper">
-                        <div class="spinner floatLeft">
+                    <div class="verticalColumn">
+                        <div class="spinner floatRight">
                             <label>Width:&nbsp;</label>
                             <input type="text" value="<?=isset($acss['border-width'])?$acss['border-width']:1?>" id="borderWidth" class="property int"/>
                             <ul>
@@ -120,23 +117,29 @@ author: Vince Ganev
                                 </li>
                             </ul>
                         </div >
-                        <label>Style: &nbsp;</label>
-                        <select id="borderStyle" class="property">
-                            <option value="solid" <?=(isset($acss['border-style'])&&$acss['border-style']=='solid')?'selected':''?>>solid</option>
-                            <option value="none" <?=(isset($acss['border-style'])&&$acss['border-style']=='none')?'selected':''?>>none</option>
-                            <option value="dotted" <?=(isset($acss['border-style'])&&$acss['border-style']=='dotted')?'selected':''?>>dotted</option>
-                            <option value="dashed" <?=(isset($acss['border-style'])&&$acss['border-style']=='dashed')?'selected':''?>>dashed</option>
-                            <option value="double" <?=(isset($acss['border-style'])&&$acss['border-style']=='double')?'selected':''?>>double</option>
-                            <option value="groove" <?=(isset($acss['border-style'])&&$acss['border-style']=='groove')?'selected':''?>>groove</option>
-                            <option value="ridge" <?=(isset($acss['border-style'])&&$acss['border-style']=='ridge')?'selected':''?>>ridge</option>
-                            <option value="inset" <?=(isset($acss['border-style'])&&$acss['border-style']=='inset')?'selected':''?>>inset</option>
-                            <option value="outset" <?=(isset($acss['border-style'])&&$acss['border-style']=='outset')?'selected':''?>>outset</option>
-                        </select>
-                        <label>&nbsp;&nbsp;&nbsp;&nbsp;Color:&nbsp;</label>
-                        <input class="color property" value="<?=isset($acss['border-color'])?$acss['border-color']:'000001'?>" id="borderColor"/>
+                        <div class="clear">&nbsp;</div> 
+                        <div class="floatRight" style="margin-top:10px;">
+                            <label>Style: &nbsp;</label>
+                            <select id="borderStyle" class="property">
+                                <option value="solid" <?=(isset($acss['border-style'])&&$acss['border-style']=='solid')?'selected':''?>>solid</option>
+                                <option value="none" <?=(isset($acss['border-style'])&&$acss['border-style']=='none')?'selected':''?>>none</option>
+                                <option value="dotted" <?=(isset($acss['border-style'])&&$acss['border-style']=='dotted')?'selected':''?>>dotted</option>
+                                <option value="dashed" <?=(isset($acss['border-style'])&&$acss['border-style']=='dashed')?'selected':''?>>dashed</option>
+                                <option value="double" <?=(isset($acss['border-style'])&&$acss['border-style']=='double')?'selected':''?>>double</option>
+                                <option value="groove" <?=(isset($acss['border-style'])&&$acss['border-style']=='groove')?'selected':''?>>groove</option>
+                                <option value="ridge" <?=(isset($acss['border-style'])&&$acss['border-style']=='ridge')?'selected':''?>>ridge</option>
+                                <option value="inset" <?=(isset($acss['border-style'])&&$acss['border-style']=='inset')?'selected':''?>>inset</option>
+                                <option value="outset" <?=(isset($acss['border-style'])&&$acss['border-style']=='outset')?'selected':''?>>outset</option>
+                            </select>
+                        </div>
+                        <div class="clear">&nbsp;</div>
+                        <div class="floatRight" style="margin-top:10px;">
+                            <label>&nbsp;&nbsp;&nbsp;&nbsp;Color:&nbsp;</label>
+                            <input class="color property" value="<?=isset($acss['border-color'])?$acss['border-color']:'000001'?>" id="borderColor"/>
+                        </div>
                     </div>
-                    <div class="clear">&nbsp;</div>   
-                    <div class="groupWraper">
+                    <!--<div class="clear">&nbsp;</div>-->   
+                    <div class="verticalColumn">
                         <div class="groupWraper">
                             <label>Radius:</label>
                         </div>
@@ -197,14 +200,16 @@ author: Vince Ganev
                             </div >                     
                          </div>
                     </div>
-                    
+                    <div class="clear">&nbsp;</div>                    
+                    <p style="font-style: italic;"><sup>*</sup>By selecting Lock you lock all 4 corners to the top left one.</p>                    
                 </div>
             </div>
             <!--button border ends-->
+            <!--gradient begins-->
             <div id="gradientContainer" class="propertyGroup">
                 <h2>Gradient<span class="plus-minus">-</span></h2>
                 <div>
-                    <div style="width: 300px; margin: 0 auto;">
+                    <!--<div style="width: 300px; margin: 0 auto;">-->
                         <div class="groupWraper">
                             <input type="radio" name="gradientType" id="linear" value="linear" class="property" <?= isset($gradientType)?($gradientType=='linear')?'checked':'':'checked'?>/>
                             <label>Linear</label>
@@ -213,28 +218,16 @@ author: Vince Ganev
                             <input type="radio" name="gradientType" id="radial" value="radial" class="property" <?= (isset($gradientType)&&$gradientType=='radial')?'checked':''?>/>
                             <label>Radial</label>
                         </div>
-                    </div>
+                    <!--</div>-->
                     
 
                     <div class="clear">&nbsp;</div>
                       
-                    <div class="groupWraper" style="margin-right: 60px;">
+                    <div class="groupWraper" style="margin-right: 100px;margin-top:10px;">
                         <input type="button" value="Add" title="Add color to gradient" id="addToGradient"/>
                         <input class="color" value="" id="gradientColor"/> 
-<!--                        <div class="spinner" style="margin:10px;" id="gradientAngleContainer">
-                            <label>Angle&nbsp;</label>
-                            <input type="text" value="<?= isset($gradientAngle)?$gradientAngle:0 ?>" id="gradientAngle" class="property int"/>
-                            <ul>
-                                <li>
-                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'gradientAngle' );"/>
-                                </li>
-                                <li>
-                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'gradientAngle');"/>                    
-                                </li>
-                            </ul>
-                        </div>-->
-
                     </div>
+                    <div>
                     <?php
                         $angle = 0;
                         if(isset($gradientAngle)){
@@ -243,6 +236,7 @@ author: Vince Ganev
                         $input = '        <input type="text" class="sliderValue property int" id="gradientAngle" value="'.$angle.'" />';
                         drawSlider(0, 360, 180, $input, 'Angle: ');
                     ?>  
+                    </div>
                     <div class="clear">&nbsp;</div>                
                     <div id="palette" class="groupWraper" style="width:300px;">
                         <input type="button" value="Remove" title="Remove the last color" id="removeFromGradient" style="float: left; margin-right:3px;"/>
@@ -259,4 +253,76 @@ author: Vince Ganev
                     
                 </div>
             </div>
+            <!--gradient ends-->
+            <!--box-shadow begins-->
+            <div id="boxShadowContainer" class="propertyGroup">
+                <h2>Box-shadow<span class="plus-minus">-</span></h2>
+                <div>
+                    <div class="verticalColumn">
+                        <div class="spinner floatRight">
+                            <label>Horizontal:&nbsp;</label>
+                            <input type="text" value="<?= isset($horizontalBoxShadow)?$horizontalBoxShadow:0?>" id="horizontalBoxShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'horizontalBoxShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'horizontalBoxShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div> 
+                        <div class="clear">&nbsp;</div>                        
+                        <div class="spinner floatRight">
+                            <label>Vertical:&nbsp;</label>
+                            <input type="text" value="<?= isset($verticalBoxShadow)?$verticalBoxShadow:0?>" id="verticalBoxShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'verticalBoxShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'verticalBoxShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="verticalColumn">
+                        
+                        <div class="spinner floatRight">
+                            <label>Blur:&nbsp;</label>
+                            <input type="text" value="<?= isset($blurBoxShadow)?$blurBoxShadow:0?>" id="blurBoxShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'blurBoxShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'blurBoxShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear">&nbsp;</div>  
+                        <div class="spinner floatRight">
+                            <label>Spread:&nbsp;</label>
+                            <input type="text" value="<?= isset($spreadBoxShadow)?$spreadBoxShadow:0?>" id="spreadBoxShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'spreadBoxShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'spreadBoxShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="verticalColumn" style="text-align: right; margin-top:10px;">
+                        <label>Color: </label><input class="color property" value="<?=(isset($colorBoxShadow)&&$colorBoxShadow!='')?$colorBoxShadow:''?>" id="colorBoxShadow"/><br> 
+                        <div style="text-align: center; margin-top:10px;">
+                            <input type="checkbox" value="inset" id="insetBoxShadow" class="property" <?=(isset($insetBoxShadow)&&$insetBoxShadow=='inset')?'checked':''?>/><label> Inset</label> 
+                        </div>
+                    </div>
+                    <div class="clear">&nbsp;</div>                    
+                    <p style="font-style: italic;"><sup>*</sup>If color is not specified the text color is used by default.</p>
+                </div>
+            </div>
+          
+            <!--box-shadow ends-->
         </div>

@@ -13,7 +13,8 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CSS Helper</title>
         <link rel="stylesheet" type="text/css" href="../CSS/CSSHelper.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/slider.css">        
+        <link rel="stylesheet" type="text/css" href="../CSS/slider.css">   
+        <link rel="stylesheet" type="text/css" href="../CSS/spiner.css"> 
 
     </head>
     <body>

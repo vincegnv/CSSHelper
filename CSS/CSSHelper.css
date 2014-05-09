@@ -60,8 +60,6 @@ body{
     list-style: none outside none;
     margin: 0;
     padding: 0;
-    /*display: inline;*/
-    /*float: left;*/
 }
 #header-buttons li, #header-buttons-right li{
     display: inline;
@@ -73,7 +71,6 @@ body{
     height: 38px;
     line-height: 38px;
     margin-top: 2px;
-    /*margin-bottom: auto;*/
     border: 1.5px solid #003162;
     display: block;
     font-weight: bold;
@@ -95,13 +92,11 @@ body{
 #content{
     width: 1000px;
     margin: auto;
-    /*border: 1px solid;*/
 }
 .title{
     text-align: center;
     background-color: #E15A00;
     color: #FFFFFF;
-/*    padding: 1px;*/
 }
 #title h1{
     padding: 5px;
@@ -110,8 +105,6 @@ body{
     float: left;
     margin-right: 16px;
     width: 492px;
-    /*z-index: -1;*/
-    /*background-color: #FFFFFF;*/
 }
 #right-column{
     float: left;
@@ -121,11 +114,10 @@ body{
 .propertyGroup > :first-child, .rightColumnContainer > :first-child{
     margin-top: 0;
 }
-.propertyGroup > :last-child{
+/*.propertyGroup > :last-child{
     margin-right: 0 !important;
-}
+}*/
 .propertyGroup, .rightColumnContainer{
-    /*border: 1px solid black;*/
     background-color: #FFFFFF;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -133,15 +125,17 @@ body{
     border: 4px solid #E1EAFB;
     box-shadow: 0 0 2px #F3F3F3;
     float: left;
-    /*padding: 10px;*/
     margin-bottom: 15px;
     display: block;
     width: 99%;
     text-align: center;
 }
+.verticalColumn{
+    float:left;
+    margin: 0 20px 10px 20px;   
+}
 .rightColumnContainer{
-    /*position: relative;*/
-    /*z-index: -1;*/
+
 }
 .propertyGroup h2, .rightColumnContainer h2{
     color: #004785;
@@ -153,7 +147,6 @@ body{
     padding-left: 10px;
     text-shadow: 0 1px #FFFFFF;
     text-align: left;
-/*    margin: 0;*/
 }
 .rightColumnContainer h2{
     margin: 0;
@@ -165,110 +158,22 @@ body{
 }
 .rightColumnContainer textarea{
     overflow: auto;
-
-/*    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;*/
-
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     height: 100%;
     width: 100%;
     margin: auto;
-    /*white-space: nowrap;*/
-    
 }
 .propertyGroup input,select, .rightColumnContainer input{
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
+
 .groupWraper{
     padding: 10px;
     float: left;
 }
-.spinner{
-
-    /*float: left;*/
-    display: table;
-    margin-right: 60px;
-    /*padding: 10px;*/
-}
-.spinnerSmall{
-    margin: 0;
-}
-.spinner ul{
-    list-style: none;
-    display: inline-block;
-    line-height: 0;
-    vertical-align: middle;
-    float: left;
-}
-.spinner *{
-    padding: 0;
-    margin: 0;
-}
-.spinner input{
-    height: 22px;
-    width: 50px;
-    vertical-align: middle;
-    text-align: center;
-    float: left;
-    border-radius: 5px 0 0 5px !important;
-    -webkit-border-radius: 5px 0 0 5px !important;
-    -moz-border-radius: 5px 0 0 5px !important;    
-    /*display: inline-block !important;*/
-}
-.spinnerSmall input{
-    width: 20px;
-
-}
-.spinner ul li:first-child > input{
-    border-radius: 0 5px 0 0 !important;
-    -webkit-border-radius: 0 5px 0 0 !important;
-    -moz-border-radius: 0 5px 0 0 !important;
-    /*    border-bottom-right-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-radius-bottomright: 5px;      */
-}
-.spinner ul li:last-child > input{
-    border-radius: 0 0 5px 0 !important;
-    -webkit-border-radius: 0 0 5px 0 !important;
-    -moz-border-radius: 0 0 5px 0 !important;
-    /*fix for IE - otherwise the buttons are dislpayed next to each other*/
-    clear: left;
-}
-.spinner input[type="button"]{
-    font-size: 6px;
-    text-align: center;
-    height: 12px;
-    width:18px;
-    /*line-height: 11px;*/
-}
-.spinner li:first-of-type input[type="button"]:active{
-    position: relative;
-    top: 1px;
-}
-.spinnerDisabled:active{
-    position: static !important;
-}
-.spinner li:last-of-type input[type="button"]:active{
-    position: relative;
-    top: -1px;
-}
-.spinner label{
-    float: left;
-    /*line-height: 100%;*/
-    padding-top: 5px;
-    /*vertical-align: baseline;*/
-    /*display: inline-block;*/
-}
-.spinner select{
-    margin-top: 5px;
-}
-
-
-
 .floatRight{
     float: right !important;
 }
@@ -283,49 +188,27 @@ body{
     height: 0;
 }
 
-/*#text > :not(:first-child){
-    margin-top: 5px;
-}*/
 #fontStyle{
     float: left;
 }
 #fontStyle input{
     margin-left: 50px;
 }
-/*#italic{
-    margin-left: 20px;
-}*/
 
 .groupName{
-/*    clear: both !important;
-    margin-left: auto !important;
-    margin-right: auto !important;*/
     text-align: center;
     font-weight: bold;
 }
 
 #buttonContainer{
-    /*float: left;*/
-    /*width: 300px;*/
     height: 150px;
     text-align: center;
-    /*background-color: white;*/
     position: relative;
-/*    z-index: 1;*/
 }
 .myButton{
-    /*margin-top: 10%;*/
-    /*width: 70px;*/
-    /*height: 30px;*/
-    /*font-family: "Arial";*/
-    /*font-size: 12pt;*/
     position: absolute;
-    /*margin-top: -15px;*/
-    /*margin-left: -35px;*/
     top: 50%;
     left: 50%;
-    /*border-width: 0;*/
-    /*border:1px solid #000000;*/
 }
 
 #buttonText{
@@ -358,18 +241,18 @@ body{
 #buttonSave{
     float:right;
     margin: 6px 5px 0 0;
-    /*z-index: 100;*/
 }
 
 .property{
-    
+    /*height: 22px;*/
 }
 .int{
-    
+    height: 22px;
 }
 
 .color{
     width: 60px;
+    height: 22px;
     text-align: center;
 }
 
@@ -379,7 +262,6 @@ body{
     margin-right: 10px;
     margin-bottom: 10px;
     height: 200px;
-/*    width: 200px;*/
     border: 1px #000000 solid;
 }
 .btnDelete, .btnOpen{
@@ -448,15 +330,12 @@ body{
 
 .redText{
     color: #FF0000;
-    /*border: 1px #FF0000 solid;*/
-
 }
 
 #savePageMsg{
     padding-top: 100px;
     font-size: 120%;
     width: 1000px;
-    /*background: #FFFFFF;*/
     margin: 0 auto;
     text-align: center;
     
@@ -464,10 +343,7 @@ body{
 #backButton{
     width: 70px;
     height: 30px;
-    /*height: 30px;*/
     background-color: #0E398B;
-    /*font-family: Ariel;*/
-    /*font-size: 12px;*/
     color: #FFFFFF;
     border-width: 0px;
     border-style: solid;
@@ -483,12 +359,8 @@ body{
     box-shadow: 2px 2px 5px #888888;
 }
 #savePageMsg input[type=submit]{
-    /*width: 70px;*/
     height: 30px;
-    /*height: 30px;*/
     background-color: #0E398B;
-    /*font-family: Ariel;*/
-    /*font-size: 12px;*/
     color: #FFFFFF;
     border-width: 0px;
     border-style: solid;

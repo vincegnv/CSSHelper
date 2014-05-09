@@ -261,6 +261,28 @@ function getGradientType($line){
     return $type;
 }
 
+function getBoxShadow($line){
+    $bs = explode(' ', $line);
+    $bShadow = array();
+    $i = 0;
+    if($bs[0]=='inset'){
+        $bShadow['inset'] = 'inset';
+        $i++;
+    } else{
+        $bShadow['inset'] = '';
+    }    
+    $bShadow['horizontal'] = $bs[$i++];
+    $bShadow['vertical'] = $bs[$i++];
+    $bShadow['blur'] = $bs[$i++];
+    $bShadow['spread'] = $bs[$i++];
+    if(isset($bs[$i])){
+        $bShadow['color'] = $bs[$i];
+    } else{
+        $bShadow['color'] = '';
+    }
+    return $bShadow;
+}
+
 //draws a custom slider control with styling defined in slider.css and functionality defined in slider.js
 function drawSlider($min, $max, $sliderWidth, $input, $inputLabel){
     echo '<div class="sliderWraper">';

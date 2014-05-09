@@ -27,6 +27,12 @@ var ButtonProperties = function(){
     this.gradientColors = [];
     this.gradientAngle = 0;
     this.gradientType = '';
+    this.horizontalBoxShadow = 0;
+    this.verticalBoxShadow = '0';
+    this.blurBoxShadow = 0;
+    this.spreadBoxShadow = 0;
+    this.insetBoxShadow = '';
+    this.colorBoxShadow = '';
 };
 ButtonProperties.prototype.addGradientColor = function(color){
     if(this.gradientColors === undefined){
@@ -49,6 +55,41 @@ ButtonProperties.prototype.getGradientColorsCount=function(){
         return 0;
     }
     return this.gradientColors.length;
+};
+ButtonProperties.prototype.getBoxShadowLine = function(){
+    if(this.horizontalBoxShadow!=='0' || this.verticalBoxShadow!=='0' ||this.blurBoxShadow!=='0' || this.spreadBoxShadow!=='0'){ 
+        var inset = '';
+        if(this.insetBoxShadow!==undefined){
+            inset = this.insetBoxShadow;
+            if(inset==='inset'){
+                inset+=' ';
+            } else{
+                inset='';
+            }
+        }
+        var h = '0';
+        if(this.horizontalBoxShadow!==undefined){
+            h = this.horizontalBoxShadow;
+        }
+        var v = '0';
+        if(this.verticalBoxShadow!==undefined){
+            v = this.verticalBoxShadow;
+        }
+        var b = '0';
+        if(this.blurBoxShadow!==undefined){
+            b = this.blurBoxShadow;
+        }
+        var s = '0';
+        if(this.spreadBoxShadow!==undefined){
+            s = this.spreadBoxShadow;
+        }
+        var color = '';
+        if(this.colorBoxShadow!==undefined&&this.colorBoxShadow!==''){
+            color = ' #'+this.colorBoxShadow;
+        }
+        return inset+h+'px '+v+'px '+b+'px '+s+'px'+color; 
+    }
+    return '';
 };
 ButtonProperties.prototype.getHTML = function(){
     switch(this.type){
@@ -104,7 +145,7 @@ ButtonProperties.prototype.getCSS = function(){
     if(this.gradientColors!==undefined&&this.gradientColors.length>1){
         var gType = $("input[name='gradientType']:checked").val();
         var str=this.gradientColors.toString();
-        if(gType=='linear'){
+        if(gType==='linear'){
             str = this.gradientAngle+'deg,'+str;
         }
         for(var i=0; i<browsers.length; i++){
@@ -112,31 +153,43 @@ ButtonProperties.prototype.getCSS = function(){
         }
         
     }
+    //box-shadow
+//    var t = this.getBoxShadowLine();
+    if(this.getBoxShadowLine()!==''){
+        css+='\tbox-shadow: '+this.getBoxShadowLine()+';\n';
+    }
     css+="}";
    return css;
 };
 
 ButtonProperties.prototype.update = function(){
     var keys = Object.keys(this);
+    //updates all simle inputs that have ids named after Button property
     for(var i = 0; i<keys.length; i++){
 //        because type is not id and it is first in the array
-        if(i>0){
+        if($('#'+keys[i]).prop('type')!=='checkbox'){
+//        if(i>0){
             this[keys[i]] = $('#'+keys[i]).val();
-        } else{
-            this[keys[i]] = $("input[name='bType']:checked").val();
+       } else{
+           if($('#'+keys[i]).is(':checked')){
+               this[keys[i]] = $('#'+keys[i]).val();
+           } else{
+               this[keys[i]] = '';
+           }
+//            this[keys[i]] = $("input[name='bType']:checked").val();
         }
     }
     //do checkboxes
-    if($('#bold').is(':checked')){
-        this.bold = "bold";
-    } else{
-        this.bold = "";
-    }
-    if($('#italic').is(':checked')){
-        this.italic = "italic";
-    } else{
-        this.italic = "";
-    }   
+//    if($('#bold').is(':checked')){
+//        this.bold = "bold";
+//    } else{
+//        this.bold = "";
+//    }
+//    if($('#italic').is(':checked')){
+//        this.italic = "italic";
+//    } else{
+//        this.italic = "";
+//    }   
     //do the corners
     if($('#lockCorners').is(':checked')){
         this.rightTop = this.leftTop;
@@ -206,13 +259,18 @@ function updateTheButton(button){
 //    gradient
     if(button.getGradientColorsCount()>=2){
         var str=button.gradientColors.toString();
-        if(button.gradientType=='linear'){
+        if(button.gradientType==='linear'){
             str = button.gradientAngle+'deg,'+str;
         }
         for(var i = 0; i<browsers.length; i++){
             b.css('background-image',browsers[i]+button.gradientType+'-gradient('+str+')');                   
         }
-}
+    }
+    //box-shadow
+    if(button.getBoxShadowLine!==''){
+        var line = button.getBoxShadowLine();
+        b.css('box-shadow', line);
+    }
 }
 
 function isInt(n){
