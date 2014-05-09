@@ -37,6 +37,7 @@ and open the template in the editor.
                             </li>                            -->
                         </ul>
                     </div>
+                    
                     <div id="header-buttons-right">
                         <ul>
                             <li>
@@ -45,10 +46,9 @@ and open the template in the editor.
                         </ul>
                     </div>
                 </div>
-                <div>
-                    <a href="../Controlers/demo.php" style="position: absolute; right: 0; margin-right: 20px; cursor: pointer; width: 40px; height:20px;">Test</a>            
-                </div>
+                 
             </div>
+          
         </div>
         <!--end header-->
         
