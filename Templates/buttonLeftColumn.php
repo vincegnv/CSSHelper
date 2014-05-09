@@ -8,49 +8,51 @@ author: Vince Ganev
 
             <div class="propertyGroup" id="size">
                 <h2>Basics<span class="plus-minus">-</span></h2>
-               <div class="groupWraper">
-                    <div style="padding-bottom: 20px;margin:0 auto;width:230px;">
-                        <div class="groupWraper">
-                            <input type="radio" name="bType" id="link" value="link" <?=isset($type)?(($type=='link')?'checked':''):'checked'?> class="property"/>
-                            <label>Link</label>
-                        </div>                
-                        <div class="groupWraper">
-                            <input type="radio" name="bType" id="button" value="button" <?=isset($type)?(($type=='button')?'checked':''):'checked'?> class="property"/>
-                            <label>Button</label>
-                        </div>                
-                        <div class="groupWraper">
-                            <input type="radio" name="bType" id="input" value="input" <?=isset($type)?(($type=='input')?'checked':''):'checked'?> class="property"/>
-                            <label>Input</label>
+                <div>
+                    <div style="text-align: left;margin:0 10px 10px 10px;float:left;">
+                        <input type="radio" name="bType" id="link" value="link" <?=isset($type)?(($type=='link')?'checked':''):'checked'?> class="property"/>
+                        <label>Link</label><br>
+
+
+                        <input type="radio" name="bType" id="button" value="button" <?=isset($type)?(($type=='button')?'checked':''):'checked'?> class="property"/>
+                        <label>Button</label><br>
+
+                        <input type="radio" name="bType" id="input" value="input" <?=isset($type)?(($type=='input')?'checked':''):'checked'?> class="property"/>
+                        <label>Input</label><br>
+                    </div>
+                        <!---->                   
+                    <div class="verticalColumn">
+                        <div class="spinner floatLeft" style="margin-top:0; margin-right:10px;">
+                            <label>Width:&nbsp;</label>
+                            <input type="text" value="<?= isset($acss)?$acss['width']:70?>" id="buttonWidth" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1, 'buttonWidth');"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'buttonWidth' );"/>                    
+                                </li>
+                            </ul>
                         </div>
-                        <div class="clear">&nbsp;</div>
+                        <!--<div class="clear">&nbsp;</div>-->
+                        <div class="spinner floatLeft" style="margin-top:0; margin-right:10px;">
+                            <label>Height:&nbsp;</label>
+                            <input type="text" value="<?= isset($acss)?$acss['height']:30?>" id="buttonHeight" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'buttonHeight' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'buttonHeight');"/>                    
+                                </li>
+                            </ul>
+                        </div>
+                        <!--<div class="clear">&nbsp;</div>-->
+                        <div class="floatLeft">
+                            <label>Color:&nbsp;</label>
+                            <input class="color property" value="<?= isset($acss)?$acss['background-color']:'FFFFFF'?>" id="buttonColor"/>          
+                        </div>
                     </div>
-                   
-                    <div class="spinner floatLeft">
-                        <label>Width:&nbsp;</label>
-                        <input type="text" value="<?= isset($acss)?$acss['width']:70?>" id="buttonWidth" class="property int"/>
-                        <ul>
-                            <li>
-                                <input type="button" value="&#9650;" onmousedown="spinnerRotate(1, 'buttonWidth');"/>
-                            </li>
-                            <li>
-                                <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'buttonWidth' );"/>                    
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="spinner floatLeft">
-                        <label>Height:&nbsp;</label>
-                        <input type="text" value="<?= isset($acss)?$acss['height']:30?>" id="buttonHeight" class="property int"/>
-                        <ul>
-                            <li>
-                                <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'buttonHeight' );"/>
-                            </li>
-                            <li>
-                                <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'buttonHeight');"/>                    
-                            </li>
-                        </ul>
-                    </div>
-                   <label>Color:&nbsp;</label>
-                   <input class="color property" value="<?= isset($acss)?$acss['background-color']:'FFFFFF'?>" id="buttonColor"/>                   
                 </div>
             </div> 
             <!--button size ends-->
@@ -59,15 +61,13 @@ author: Vince Ganev
             <div class="propertyGroup" id="text">
                 <h2>Text<span class="plus-minus">-</span></h2>
                 <div>
-                    <div class="groupWraper">
-                        <label>Caption:&nbsp;</label>
-                        <input type="text" placeholder="Text" id="buttonText" class="property" value="<?= isset($html)?getButtonText($html, $type):''?>"/>
-                        <label>Color:&nbsp;</label>
-                        <input class="color property" value="<?= isset($acss)?$acss['color']:'000000'?>" id="fontColor"/>  
-                    </div>
-                    <div class="clear">&nbsp;</div>
-                    <div class="groupWraper">
-                        <div class="spinner floatLeft">
+                    <div class="verticalColumn">
+                        <div class="groupWraper floatRight">
+                            <label>Caption:&nbsp;</label>
+                            <input type="text" placeholder="Text" id="buttonText" class="property" value="<?= isset($html)?getButtonText($html, $type):''?>"/>
+                        </div>
+                        <div class="clear">&nbsp;</div>
+                        <div class="groupWraper floatRight">
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Font:&nbsp;</label>
                             <select id="buttonFont" class="property">
                                 <option value="Ariel" <?=(isset($acss)&&$acss['font-family']=='Arial')?'selected':'' ?>>Ariel</option>
@@ -79,7 +79,14 @@ author: Vince Ganev
                                 <option value="Verdana" <?=(isset($acss)&&$acss['font-family']=='Verdana')?'selected':'' ?>>Verdana</option>
                             </select>                        
                         </div>
-                        <div class="spinner floatLeft">
+                        <div class="clear">&nbsp;</div>
+                        <div id="fontStyle" class="groupWraper">
+                            <input type="checkbox" value="bold" id="bold" class="property" <?=(isset($acss['font-weight'])&&$acss['font-weight']=='bold')?'checked':''?>/>&nbsp;<b>Bold</b>
+                            <input type="checkbox" value="italic" id="italic" class="property" <?=(isset($acss['font-style'])&&$acss['font-style']=='italic')?'checked':''?>/>&nbsp;<i>Italic</i>
+                        </div>                         
+                    </div>
+                    <div class="verticalColumn">
+                        <div class="spinner floatRight" style="margin-bottom: 10px;">
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;Size:&nbsp;</label>
                             <input type="text" value="<?= isset($acss)?$acss['font-size']:12?>" id="buttonFontSize" class="property int"/>
                             <!--<label class="floatRight">px</label>-->
@@ -92,11 +99,12 @@ author: Vince Ganev
                                 </li>
                             </ul>
                         </div>
+                        <div class="clear">&nbsp;</div>
+                        <div class="groupWraper floatRight" style="padding-right: 0;">
+                            <label>Color:&nbsp;</label>
+                            <input class="color property" value="<?= isset($acss)?$acss['color']:'000000'?>" id="fontColor"/>  
+                        </div>                        
                     </div>
-                    <div id="fontStyle" class="groupWraper">
-                        <input type="checkbox" value="bold" id="bold" class="property" <?=(isset($acss['font-weight'])&&$acss['font-weight']=='bold')?'checked':''?>/>&nbsp;<b>Bold</b>
-                        <input type="checkbox" value="italic" id="italic" class="property" <?=(isset($acss['font-style'])&&$acss['font-style']=='italic')?'checked':''?>/>&nbsp;<i>Italic</i>
-                    </div> 
                 </div>
             </div>
             <!--button text ends-->
