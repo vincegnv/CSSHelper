@@ -212,14 +212,20 @@ author: Vince Ganev
 //                hides and shows groups
                 $(".plus-minus").on('click', function(){
                     if($(this).text()==='+'){
-                        $(this).text('-');
-                        $(this).parent('h2').next().show();
-                        $(this).parent().removeClass('remove-margin');
+                        putOnTop($(this).closest('.propertyGroup')) ;
+                        openDiv($(this));
+//                        $(this).text('-');
+//                        $(this).parent('h2').next().show();
+//                        $(this).parent().removeClass('remove-margin');
+                        
                     } else{
-                        $(this).text('+');
-                        $(this).parent('h2').next().hide();
-                        $(this).parent().addClass('remove-margin');
-                     }
+                        closeDiv($(this));
+                    }
+//                        $(this).text('+');
+//                        $(this).parent('h2').next().hide();
+//                        $(this).parent().addClass('remove-margin');
+//                     }
+                     
                 });
                //all hidden
                $('.plus-minus').trigger('click');

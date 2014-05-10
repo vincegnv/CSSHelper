@@ -156,6 +156,8 @@ ButtonProperties.prototype.getCSS = function(){
     //box-shadow
 //    var t = this.getBoxShadowLine();
     if(this.getBoxShadowLine()!==''){
+        css+='\t-moz-shadow: '+this.getBoxShadowLine()+';\n';
+        css+='\t-webkit-box-shadow: '+this.getBoxShadowLine()+';\n';
         css+='\tbox-shadow: '+this.getBoxShadowLine()+';\n';
     }
     css+="}";
@@ -279,6 +281,35 @@ function isInt(n){
         return false;
     }    
     return true;
+}
+
+function putOnTop(div){
+    //get all the divs that are siblings with this one, including itself
+    //find our div in that group
+    var index = $('.propertyGroup').index(div);
+    while(index > 0){
+        $('.propertyGroup').eq(index-1).insertAfter(div);
+        index--;
+    }
+    //close the divs that are open after the third div
+    for(var i = 2; i<$('.propertyGroup').length; i++){
+        if($('.propertyGroup').eq(i).is(':visible')){
+            closeDiv($('.propertyGroup').eq(i).find('span').first());
+        }
+    }
+}  
+
+
+function openDiv(span){
+    span.text('-');
+    span.parent('h2').next().show();
+    span.parent().removeClass('remove-margin');    
+}
+
+function closeDiv(span){
+    span.text('+');
+    span.parent('h2').next().hide();
+    span.parent().addClass('remove-margin');    
 }
 
 

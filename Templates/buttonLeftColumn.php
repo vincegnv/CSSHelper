@@ -56,7 +56,6 @@ author: Vince Ganev
                 </div>
             </div> 
             <!--button size ends-->
-            <div class="clear">&nbsp;</div>
             <!--button text-->
             <div class="propertyGroup" id="text">
                 <h2>Text<span class="plus-minus">-</span></h2>

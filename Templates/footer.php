@@ -9,6 +9,7 @@ and open the template in the editor.
         <script type="text/javascript" src="../scripts/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="../scripts/functions.js"></script>
         <script type="text/javascript" src="../scripts/slider.js"></script>        
-        <script src="../jscolor/jscolor.js" type="text/javascript"></script>        
+        <script src="../jscolor/jscolor.js" type="text/javascript"></script>   
+        <script type="text/javascript" src="../scripts/jquery-swapsies.js"></script>
     </body>
 </html>
