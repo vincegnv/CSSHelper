@@ -29,6 +29,9 @@ and open the template in the editor.
                             <li>
                                 <a href="../Controlers/button.php">BUTTON</a>
                             </li>
+                            <li>
+                                <a href="../Controlers/library.php">LIBRARY</a>
+                            </li>                            
 <!--                            <li>
                                 <a href="..">SPINNER INPUT</a>
                             </li>     
@@ -40,9 +43,9 @@ and open the template in the editor.
                     
                     <div id="header-buttons-right">
                         <ul>
-                            <li>
+<!--                            <li>
                                 <a href="../Controlers/library.php">LIBRARY</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

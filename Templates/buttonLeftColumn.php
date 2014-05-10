@@ -55,8 +55,9 @@ author: Vince Ganev
                     </div>
                 </div>
             </div> 
-            <!--button size ends-->
-            <!--button text-->
+<!--button size ends-->
+
+<!--button text-->
             <div class="propertyGroup" id="text">
                 <h2>Text<span class="plus-minus">-</span></h2>
                 <div>
@@ -106,8 +107,77 @@ author: Vince Ganev
                     </div>
                 </div>
             </div>
-            <!--button text ends-->
-            <!--button border starts-->
+<!--button text ends-->
+
+<!--text-shadow begins-->
+            <div id="textShadowContainer" class="propertyGroup">
+                <h2>Text-shadow<span class="plus-minus">-</span></h2>
+                <div>
+                    <div class="verticalColumn">
+                        <div class="spinner floatRight">
+                            <label>Horizontal:&nbsp;</label>
+                            <input type="text" value="<?= isset($horizontalTextShadow)?$horizontalTextShadow:0?>" id="horizontalTextShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'horizontalTextShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'horizontalTextShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div> 
+                        <div class="clear">&nbsp;</div>                        
+                        <div class="spinner floatRight">
+                            <label>Vertical:&nbsp;</label>
+                            <input type="text" value="<?= isset($verticalTextShadow)?$verticalTextShadow:0?>" id="verticalTextShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'verticalTextShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'verticalTextShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="verticalColumn">
+                        
+                        <div class="spinner floatRight">
+                            <label>Blur:&nbsp;</label>
+                            <input type="text" value="<?= isset($blurTextShadow)?$blurTextShadow:0?>" id="blurTextShadow" class="property int"/>
+                            <ul>
+                                <li>
+                                    <input type="button" value="&#9650;" onmousedown="spinnerRotate(1,'blurTextShadow' );"/>
+                                </li>
+                                <li>
+                                    <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'blurTextShadow');"/>                    
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear">&nbsp;</div> 
+                        <div style="margin-top:10px; float:right">
+                            <label>Color: </label>
+                            <input class="color property" value="<?=(isset($colorTextShadow)&&$colorTextShadow!='')?$colorTextShadow:''?>" id="colorTextShadow"/><br> 
+                        </div>
+                    </div>
+                    <div class="verticalColumn">
+                    <?php
+                        $opacity = 100;
+                        if(isset($opacityTextShadow)){
+                            $opacity = $opacityTextShadow;
+                        }
+                        $input = '        <input type="text" class="sliderValue property int" id="opacityTextShadow" value="'.$opacity.'" />';
+                        drawSlider(0, 100, 100, $input, 'Opacity: ');
+                    ?>  
+                    </div>                    
+                    <div class="clear">&nbsp;</div>                    
+                    <p style="font-style: italic;"><sup>*</sup>If color is not specified the text color is used by default.</p>
+                </div>
+            </div>
+          
+<!--text-shadow ends-->
+
+<!--button border starts-->
             <div class="propertyGroup" id="border">
                 <h2>Border<span class="plus-minus">-</span></h2>
                 <div>
@@ -211,8 +281,9 @@ author: Vince Ganev
                     <p style="font-style: italic;"><sup>*</sup>By selecting Lock you lock all 4 corners to the top left one.</p>                    
                 </div>
             </div>
-            <!--button border ends-->
-            <!--gradient begins-->
+<!--button border ends-->
+
+<!--gradient begins-->
             <div id="gradientContainer" class="propertyGroup">
                 <h2>Gradient<span class="plus-minus">-</span></h2>
                 <div>
@@ -225,9 +296,6 @@ author: Vince Ganev
                             <input type="radio" name="gradientType" id="radial" value="radial" class="property" <?= (isset($gradientType)&&$gradientType=='radial')?'checked':''?>/>
                             <label>Radial</label>
                         </div>
-                    <!--</div>-->
-                    
-
                     <div class="clear">&nbsp;</div>
                       
                     <div class="groupWraper" style="margin-right: 100px;margin-top:10px;">
@@ -260,8 +328,9 @@ author: Vince Ganev
                     
                 </div>
             </div>
-            <!--gradient ends-->
-            <!--box-shadow begins-->
+<!--gradient ends-->
+
+<!--box-shadow begins-->
             <div id="boxShadowContainer" class="propertyGroup">
                 <h2>Box-shadow<span class="plus-minus">-</span></h2>
                 <div>
@@ -291,6 +360,12 @@ author: Vince Ganev
                                 </li>
                             </ul>
                         </div> 
+                        <div class="clear">&nbsp;</div>
+                        <div class="floatRight" style="margin-top:10px;">
+                            <label>Color: </label>
+                            <input class="color property" value="<?=(isset($colorBoxShadow)&&$colorBoxShadow!='')?$colorBoxShadow:''?>" 
+                                   id="colorBoxShadow"/> 
+                        </div>
                     </div>
                     <div class="verticalColumn">
                         
@@ -318,18 +393,26 @@ author: Vince Ganev
                                     <input type="button" value="&#9660;" onmousedown="spinnerRotate(-1,'spreadBoxShadow');"/>                    
                                 </li>
                             </ul>
-                        </div> 
-                    </div>
-                    <div class="verticalColumn" style="text-align: right; margin-top:10px;">
-                        <label>Color: </label><input class="color property" value="<?=(isset($colorBoxShadow)&&$colorBoxShadow!='')?$colorBoxShadow:''?>" id="colorBoxShadow"/><br> 
-                        <div style="text-align: center; margin-top:10px;">
+                        </div>
+                        <div class="clear">&nbsp;</div> 
+                        <div style="text-align: right; margin-top:10px;">
                             <input type="checkbox" value="inset" id="insetBoxShadow" class="property" <?=(isset($insetBoxShadow)&&$insetBoxShadow=='inset')?'checked':''?>/><label> Inset</label> 
                         </div>
+                    </div>
+                    <div class="verticalColumn" style="text-align: right; margin-top:10px;">
+                    <?php
+                        $opacity = 100;
+                        if(isset($opacityBoxShadow)){
+                            $opacity = $opacityBoxShadow;
+                        }
+                        $input = '        <input type="text" class="sliderValue property int" id="opacityBoxShadow" value="'.$opacity.'" />';
+                        drawSlider(0, 100, 100, $input, 'Opacity: ');
+                    ?>                          
+
                     </div>
                     <div class="clear">&nbsp;</div>                    
                     <p style="font-style: italic;"><sup>*</sup>If color is not specified the text color is used by default.</p>
                 </div>
             </div>
-          
-            <!--box-shadow ends-->
+<!--box-shadow ends-->
         </div>

@@ -15,10 +15,11 @@ $(document).ready(function(){
     
     $('.sliderValue').each(function(){
         if($(this).val()!=='0'){
-            var thumb = $(this).parents('.sliderWraper').find('.sliderThumb').eq(0);
-            var bar = $(this).parents('.sliderWraper').find('.sliderBar').eq(0);
-            var minValue = parseInt($(this).parents('.sliderWraper').find('label').first().html());
-            var maxValue = parseInt($(this).parents('.sliderWraper').find('label').last().html());
+            var wraper = $(this).closest('.sliderWraper');
+            var thumb = wraper.find('.sliderThumb').eq(0);
+            var bar = wraper.find('.sliderBar').eq(0);
+            var minValue = wraper.find('label').first().html();
+            var maxValue = wraper.find('label').last().html();
             var leftStop = parseInt(bar.offset().left,10);
             var rightStop = parseInt(bar.offset().left + bar.width() - thumb.width(),10);            
             var value = parseInt($(this).val());
@@ -39,8 +40,9 @@ $(document).ready(function(){
         bar = $(this).find('.sliderBar').eq(0);
         minValue = parseInt($(this).find('label').first().html());
         maxValue = parseInt($(this).find('label').last().html());
-        leftStop = parseInt(bar.offset().left,10);
-        rightStop = parseInt(bar.offset().left + bar.width() - thumb.width(),10);
+        leftStop = Math.round(bar.offset().left);
+        rightStop = Math.round(bar.offset().left + bar.width() - thumb.width());
+            
     });
 //unset thumb when leaving the control
     $('.sliderWraper').mouseleave(function(){
@@ -56,12 +58,27 @@ $(document).ready(function(){
     });            
     //move
     $('.sliderWraper').mousemove(function(e){
-     if(holdingThumb && e.pageX>=leftStop && e.pageX<=rightStop){ 
-        thumb.offset({top: thumb.offset().top, left: e.pageX});
-        var percent = 100*((thumb.offset().left - bar.offset().left)/(rightStop-leftStop));
-        var step = (maxValue-minValue)/100;
-        var value = Math.floor(minValue+step*percent);
-        $('.sliderWraper input').val(value);
+        var pageX = Math.round(e.pageX);
+     if(holdingThumb && pageX>=leftStop && pageX<=rightStop){
+         var value;
+         if(pageX==leftStop){
+             value = minValue;
+         } else if(pageX==rightStop){
+             value = maxValue;
+         } else{
+//        thumb.offset({top: thumb.offset().top, left: e.pageX-thumb.width()/2});
+            var percent = 100*((pageX - bar.offset().left)/(rightStop-leftStop));
+            var step = (maxValue-minValue)/100;
+            var value = Math.round(minValue+step*percent);
+         }
+//        if(value < minValue){
+//            value = minValue;
+//        }
+//        else if(value > maxValue){
+//            value = maxValue;
+//        }
+    
+        $(this).find('.sliderValue').val(value).trigger('change');
      }
     });
     
@@ -101,7 +118,7 @@ $(document).ready(function(){
 
     //slide the thumb when value is changed manualy
     $('.sliderValue').change(function(){
-        var thumb = $(this).parents('.sliderWraper').find('.sliderThumb').eq(0);
+        var thumb = $(this).closest('.sliderWraper').find('.sliderThumb').eq(0);
         var value = parseInt($(this).val());
         var position = Math.abs(value/(maxValue-minValue))*(rightStop-leftStop);
         var leftOffset = Math.round(bar.offset().left+position);

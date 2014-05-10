@@ -46,6 +46,15 @@ author: Vince Ganev
                     $blurBoxShadow = $bShadow['blur'];
                     $spreadBoxShadow = $bShadow['spread'];
                     $colorBoxShadow = $bShadow['color'];
+                    $opacityBoxShadow = $bShadow['opacity'];
+                }
+                if(isset($acss['text-shadow'])){
+                    $tShadow = getTextShadow($acss['text-shadow']);
+                    $horizontalTextShadow = $tShadow['horizontal'];
+                    $verticalTextShadow = $tShadow['vertical'];
+                    $blurTextShadow = $tShadow['blur'];
+                    $colorTextShadow = $tShadow['color'];
+                    $opacityTextShadow = $tShadow['opacity'];
                 }
             } else{
                 $_SESSION['fromLibrary'] = false;
@@ -73,7 +82,7 @@ author: Vince Ganev
                         button['type'] = id;
                     } else if(id==='linear' || id==='radial'){
                         button.gradientType = id;
-                        if(id=='linear'){
+                        if(id==='linear'){
                             $('#gradientAngleContainer').show();
                         } else{
                             $('#gradientAngleContainer').hide();
@@ -167,12 +176,28 @@ author: Vince Ganev
                                 break;
                             case "horizontalBoxShadow":
                             case "verticalBoxShadow":
-                            case "blurBoxShadow":
                             case "spreadBoxShadow":
+                            case "horizontalTextShadow":
+                            case "verticalTextShadow":                                
                                 if(!isInt($(this).val())){
                                     $(this).val(button[id]);
                                     return;
                                 }
+                                break;
+                            case "blurBoxShadow":
+                            case "blurTextShadow":    
+                                if(!isInt($(this).val())||$(this).val()<0){
+                                   $(this).val(button[id]);
+                                   return;
+                                }                               
+                                break;
+                            case "opacityTextShadow":
+                            case "opacityBoxShadow":                                
+                                if(!isInt($(this).val())||$(this).val()<0||$(this).val()>100){
+                                   $(this).val(button[id]);
+                                   $(this).trigger('change');
+                                   return;
+                                }                                  
                                 break;
                         }//end switch
                         //update the button object
@@ -214,18 +239,10 @@ author: Vince Ganev
                     if($(this).text()==='+'){
                         putOnTop($(this).closest('.propertyGroup')) ;
                         openDiv($(this));
-//                        $(this).text('-');
-//                        $(this).parent('h2').next().show();
-//                        $(this).parent().removeClass('remove-margin');
-                        
                     } else{
                         closeDiv($(this));
                     }
-//                        $(this).text('+');
-//                        $(this).parent('h2').next().hide();
-//                        $(this).parent().addClass('remove-margin');
-//                     }
-                     
+                    
                 });
                //all hidden
                $('.plus-minus').trigger('click');
@@ -273,6 +290,9 @@ author: Vince Ganev
                         }
                         $(this).addClass('redText');
                     }
-                }); 
+                });
+                
+             
+
             });
         </script>

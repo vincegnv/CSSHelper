@@ -276,11 +276,34 @@ function getBoxShadow($line){
     $bShadow['blur'] = $bs[$i++];
     $bShadow['spread'] = $bs[$i++];
     if(isset($bs[$i])){
-        $bShadow['color'] = $bs[$i];
+        $rgba = explode(',', str_replace(array('rgba(', ')'), '', $bs[$i]));
+        $bShadow['color'] = RGBToHex($rgba[0], $rgba[1], $rgba[2]);
+        $bShadow['opacity'] = $rgba[3]*100;
     } else{
         $bShadow['color'] = '';
+        $bShadow['opacity'] = 100;
     }
     return $bShadow;
+}
+
+function getTextShadow($line){
+   $ts = explode(' ', $line);
+    $tShadow = array();
+    $tShadow['horizontal'] = $ts[0];
+    $tShadow['vertical'] = $ts[1];
+    $tShadow['blur'] = $ts[2];
+    $rgba = explode(',', str_replace(array('rgba(', ')'), '', $ts[3]));
+    $tShadow['color'] = RGBToHex($rgba[0], $rgba[1], $rgba[2]);
+    $tShadow['opacity'] = $rgba[3]*100;
+    return $tShadow;
+}
+function RGBToHex($r, $g, $b) {
+    $hex = "";
+    $hex.= str_pad(dechex($r), 2, "0", STR_PAD_LEFT);
+    $hex.= str_pad(dechex($g), 2, "0", STR_PAD_LEFT);
+    $hex.= str_pad(dechex($b), 2, "0", STR_PAD_LEFT);
+ 
+return $hex;
 }
 
 //draws a custom slider control with styling defined in slider.css and functionality defined in slider.js
