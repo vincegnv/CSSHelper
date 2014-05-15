@@ -125,5 +125,25 @@ function closeDiv(span){
 //    span.parents('.propertyGroup').first().css('border-color','#E1EAFB');
 }
 
+function titleEffect(){
+    var title = $('#title');
+    var container = title.parent('h1').eq(0);
+    var travelMargin = container.width()- title.width() - 2*parseInt(title.css('padding-left'));
+    var centerMargin = container.width()/2 - title.width()/2;
+    title.animate({'margin-left': centerMargin}, 500);
+}
 
+//function shareElement(id){
+//   $.ajax({  
+//   type: "POST",  
+//   data: "id="+id,  
+//   url: "shareElement.php",  
+//   success: function(msg)  
+//   {  
+//    $("span#votes_count"+the_id).html(msg);  
+//    //fadein the vote count  
+//    $("span#votes_count"+the_id).fadeIn();  
+//    //remove the spinner  
+//    $("span#vote_buttons"+the_id).remove();   
+//}
 

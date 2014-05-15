@@ -1,142 +1,89 @@
-<!--author: Vince Ganev-->
-
-
 <?php
-//connects to predeterment database
-function dbConnect(){
-    $dsn = 'mysql:host=' . SERVER . ';dbname=' . DATABASE;
-    static $db;
-    if(!isset($db)){
-        try{
-            $db= new PDO($dsn, USERNAME, PASSWORD);
-            // ensure that PDO::prepare returns false when passed invalid SQL
-            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);             
-        } catch(PDOException $e){
-            trigger_error($e->getMessage(), E_USER_ERROR);
+    /**
+     * Executes SQL statement, possibly with parameters, returning
+     * an array of all rows in result set or false on (non-fatal) error.
+     */
+    function query(/* $sql [, ... ] */)
+    {
+        // SQL statement
+        $sql = func_get_arg(0);
+
+        // parameters, if any
+        $parameters = array_slice(func_get_args(), 1);
+
+        // try to connect to database
+        static $handle;
+        if (!isset($handle))
+        {
+            try
+            {
+                // connect to database
+                $handle = new PDO("mysql:dbname=" . DATABASE . ";host=" . SERVER, USERNAME, PASSWORD);
+
+                // ensure that PDO::prepare returns false when passed invalid SQL
+                $handle->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); 
+            }
+            catch (Exception $e)
+            {
+                // trigger (big, orange) error
+                trigger_error($e->getMessage(), E_USER_ERROR);
+                exit;
+//                return false;
+            }
+        }
+
+        // prepare SQL statement
+        $statement = $handle->prepare($sql);
+        if ($statement === false)
+        {
+            $err = $handle->errorInfo();
+            // trigger (big, orange) error
+            trigger_error($err[2], E_USER_ERROR);
             exit;
+//            return false;
+        }
+
+        // execute SQL statement
+        $results = $statement->execute($parameters);
+
+        // return result set's rows, if any
+        if ($results !== false)
+        {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else
+        {
+            return false;
         }
     }
-    return $db;
-}
 
-//saves to database, if the same element has already been saved returns false
-function insertElement($type, $html, $css, $js){
-    //check if this elelment already exists by comparing the css code of the same type
-    $rows = getElementsByType($type);
+//returns number of existing copies of the element in the database for a specific user
+function elementExists($id, $type, $html, $css, $js){
+    $rows = query("SELECT * FROM htmlcsslib WHERE userid=$id AND type='$type' AND html='$html' AND js='$js' AND css='$css'");
     $hasMatch = false;
     foreach($rows as $row){
         if($row['css']===$css){
             $hasMatch = true;
             break;
-        }
-    }
-    if(!$hasMatch){
-        $query = "INSERT INTO htmlcsslib (type, html, css, js) VALUES ('$type', '$html', '$css', '$js')";
-        $db = dbConnect();
-        $statement = $db->prepare($query);
-        if ($statement === false){
-            $err = $db->errorInfo();
-            trigger_error($err[2], E_USER_ERROR);
-            exit;
-        }    
-        if($statement->execute()==false){
-            trigger_error('Could not execute query: ' . $query . ".", E_USER_ERROR);
-            exit;
-        }
-        return true;
-    } else{
-        return false;
-    }
-}
-
-//updates existing element in the database, returns true if success, false if not
-function updateElement($id, $type, $html, $css, $js){
-        $query = "UPDATE htmlcsslib SET type='$type', html='$html', css='$css', js='$js' WHERE id=$id";
-        $db = dbConnect();
-        $statement = $db->prepare($query);
-        if ($statement === false){
-            $err = $db->errorInfo();
-            trigger_error($err[2], E_USER_ERROR);
-            return false;
-        }    
-        if($statement->execute()==false){
-            trigger_error('Could not execute query: ' . $query . ".", E_USER_ERROR);
             return false;
         }
-        return true;
+    }
+    return $hasMatch;    
 }
 
-//returns all elements of a certain type from the dB
-function getElementsByType($type){
-    $query = "SELECT * FROM htmlcsslib WHERE type='$type'";
-    $db = dbConnect();
-    $statement = $db->prepare($query);
-    if($statement === false){
-            $err = $db->errorInfo();
-            trigger_error($err[2], E_USER_ERROR);
-        exit;        
-    }
-    if($statement->execute()){
-        return $statement->fetchAll();
-    } else{
-        trigger_error('Could not execute query: ' . $query . ".", E_USER_ERROR);
-        exit;
-    }
+//returns 0 if user not found or 1
+function userExists($un){
+     $rows = query("SELECT * FROM users WHERE username='$un'");
+     if(count($rows) > 0) return true;
+     return false;
 }
-
-//queries the dB for $id
-function getElementById($id){
-    $query = "SELECT * FROM htmlcsslib WHERE id=$id";
-    $db = dbConnect();
-    $statement = $db->prepare($query);
-    if($statement === false){
-            $err = $db->errorInfo();
-            trigger_error($err[2], E_USER_ERROR);
-        exit;        
+//returns user's id, if user name doesnt exist returns 0
+function getUserId($un){
+    $rows = query("SELECT * FROM users WHERE username='$un'");
+    if(count($rows) > 0){
+        return $rows[0]['userid'];
     }
-    if($statement->execute()){
-        return $statement->fetchAll();
-    } else{
-        trigger_error('Could not execute query: ' . $query . ".", E_USER_ERROR);
-        exit;
-    }
-}
-
-//deletes from dB element with id=$id
-function deleteElement($id){
-    $query = "DELETE FROM htmlcsslib WHERE id=$id";
-    $db = dbConnect();
-    $statement = $db->prepare($query);
-    if($statement === false){
-            $err = $db->errorInfo();
-            trigger_error($err[2], E_USER_ERROR);
-        return false;        
-    }
-    if($statement->execute()){
-        return true;
-    } else{
-        trigger_error('Could not execute query: ' . $query . ".", E_USER_ERROR);
-        return false;
-    }    
-}
-
-//returns number of existing copies of the element in the database
-function elementExists($type, $html, $css, $js){
-    $query = "SELECT * FROM htmlcsslib WHERE type='$type' AND html='$html' AND js='$js' AND css='$css'";
-    $db = dbConnect();
-    $statement = $db->prepare($query);
-    if($statement === false){
-            $err = $db->errorInfo();
-            trigger_error($err[2], E_USER_ERROR);
-        return false;        
-    }
-    if($statement->execute()){
-        $r = $statement->fetchAll();
-        return count($r);
-    } else{
-        trigger_error('Could not execute query: ' . $query . ".", E_USER_ERROR);
-        return false;
-    }      
+    return 0;
 }
 
 function replaceClass($html, $newClass){
@@ -197,7 +144,7 @@ function getAttrValue($css, $attr){
 //centers the element inside the containing div by adjusting the top and left margin
 function setMargins($css){
     $x = getAttrValue($css, "width")/-2;
-    $y = getAttrValue($css, "height")/-2-20;
+    $y = getAttrValue($css, "height")/-2;
     return $css . " margin-left: {$x}px; margin-top: {$y}px;";
 }
 
@@ -326,7 +273,3 @@ function drawSlider($min, $max, $sliderWidth, $input, $inputLabel){
     echo '</div>';
 }
 ?>
-
-
-
-

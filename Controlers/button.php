@@ -4,15 +4,39 @@ author: Vince Ganev
 
         <?php
             require('../includes/config.php');
+            $title='Button Generator';
             require('../Templates/header.php');
+        ?>
 
-            session_start();
+<div id="dialog-info" title="Message">
+    <p></p>
+</div>
+
+<div id="dialog-choice" title="What to do?">
+    <p>
+        <span class="ui-icon ui-icon-copy" style="float:left; margin:0 7px 20px 0;"></span>
+        The item was opened in your library. Do you want to save over or save as a new item?
+    </p>
+</div>
+
+        <?php
+
+            //remember the last page before login/logout
+            $_SESSION['lastpage'] = 'button.php';
            
             if($_SERVER["REQUEST_METHOD"]=="GET" && isset($_GET['id'])){
+                //havin id set shows that we come from the library
+                $element = query("SELECT * FROM htmlcsslib WHERE id={$_GET['id']}");
                 //saves the id of the element that is opened from the library to the SESSION
-                $_SESSION['fromLibrary'] = $_GET['id'];
+                //if it is opened by its creator
+                $creatorname = query("SELECT * FROM users WHERE userid={$element[0]['userid']}")[0]['username'];
+                if(isset($_SESSION['username']) && $_SESSION['username'] == $creatorname){
+                    $_SESSION['fromLibrary'] = $_GET['id'];
+                } else{
+                    unset($_SESSION['fromLibrary']);
+                }
                 
-                $element = getElementById($_GET['id']);
+                //get the element with id = $id
                 $css = getCSS($element[0]['css']);
                 $html = $element[0]['html'];
                 $type = getButtonType($html);
@@ -57,6 +81,7 @@ author: Vince Ganev
                     $opacityTextShadow = $tShadow['opacity'];
                 }
             } else{
+                //brand new element
                 $_SESSION['fromLibrary'] = false;
             }
             require('../Templates/buttonLeftColumn.php');
@@ -70,11 +95,15 @@ author: Vince Ganev
 
             
             $(document).ready(function(){
- 
+
+                //load the button object
                 button.update();
+                //update the DOM object
                 updateTheButton(button);
+                //update the source textareas
                 $('#HTMLsource').val(button.getHTML());
-                $('#CSSsource').val(button.getCSS());                
+                $('#CSSsource').val(button.getCSS());    
+                //update when the user changes a property
                 $('.property').on('change', function(){
                     var id = $(this).attr('id');
 //                    update the button object
@@ -216,7 +245,8 @@ author: Vince Ganev
                     $('#HTMLsource').val(button.getHTML());
                     $('#CSSsource').val(button.getCSS());
                 });
-
+                //end .property onchange
+                
                 $('#buttonText').on('keyup', function(){
                     if(button.type==='input'){
                         $('#myButton').attr('value',$(this).val());
@@ -226,7 +256,8 @@ author: Vince Ganev
                     button.buttonText = $(this).val();
                     $(this).trigger('change');
                 });
-                                $(".spinner input[type='button']").on('mouseup',stopSpinner);
+                
+                $(".spinner input[type='button']").on('mouseup',stopSpinner);
                 $(".spinner input[type='button']").on('mouseout',stopSpinner);
 
                 //makes textareas readonly, but still scrollable
@@ -242,8 +273,8 @@ author: Vince Ganev
                     } else{
                         closeDiv($(this));
                     }
-                    
                 });
+                
                //all hidden
                $('.plus-minus').trigger('click');
                
@@ -257,7 +288,7 @@ author: Vince Ganev
                         $('#CSSsource').val(button.getCSS());
                     }
                 });
-                
+                //removes a color from gradient pallete
                 $('#removeFromGradient').click(function(){
                     var inputs = $('#paletteColors').children('input');  
                     var color='';
@@ -278,7 +309,7 @@ author: Vince Ganev
                 });
                 
 
-//                color  to stand out, using document, because the inputs are genereated dinamically
+//                color  to stand out, using document, because the inputs are genereated dynamically
                 $(document).on('click','#paletteColors input',function(event){
                     event.preventDefault();
                     if($(this).hasClass('redText')){
@@ -290,6 +321,104 @@ author: Vince Ganev
                         }
                         $(this).addClass('redText');
                     }
+                });
+                
+                //information box 
+                 $(function(){
+                     $( "#dialog-info" ).dialog({
+                         resizable: false,
+                         height:170,
+                         autoOpen: false,
+                         modal: true,
+                         buttons: {
+                             "OK": function() {
+                                 $( this ).dialog( "close" );
+                             }
+
+                         }
+                     });            
+                 });
+                 
+                 var choice = '';
+                 //choice dialog
+                $(function(){
+                    $( "#dialog-choice" ).dialog({
+                        resizable: false,
+                        height:170,
+                        autoOpen: false,
+                        modal: true,
+                        buttons: {
+                            "Overwrite": function() {
+                                choice = "overwrite";
+                                $('#buttonSave').trigger('click');
+                                $( this ).dialog( "close" );
+                            },
+                            "New": function(){
+                                choice = "new";
+                                $('#buttonSave').trigger('click');
+                                $( this ).dialog( "close" );                            
+                            },
+                            Cancel: function() {
+                                choice = '';
+                                $( this ).dialog( "close" );
+                            }
+                        }
+                    });            
+                });                 
+                
+                //ajax for save
+                $('#buttonForm').submit(function(event){
+                    event.preventDefault();
+                    //prepare the data
+                    var data = $(this).serialize();
+                    if(choice === ''){
+                        choice = "save";
+                    }
+                    //adding the call signature
+                    data += '&action=' + choice;
+                    
+                    $.ajax({
+                        type: "POST",
+                        data: data,
+                        url: "save_code.php",
+                        success: function(msg){
+                            var html = '<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>';
+                            choice = '';
+                            
+                            if(msg === "exist" || msg === "saved" || msg === "logout"){
+                                var p = $('#dialog-info p').eq(0)
+//                                var html = p.html();
+//                                var text = p.text();
+//                                //clear the message, if any, from the paragraph container
+//                                p.html(html.replace(text, ''));                              
+                            }
+                            
+                            if(msg === "exist"){
+                                //add the new message
+                                p.html(html+'Item with the same parameters already exists in your library.')
+                                //call the dialog    
+                                $('#dialog-info').dialog("open");
+                            } else if(msg === "choice"){
+                                $('#dialog-choice').dialog("open");
+                            } else if(msg === "saved"){
+                                //add the messsage
+                                p.html(html+'Saved.')
+                                $('#dialog-info').dialog("open");
+                            } else if(msg === "logout"){
+                                //tell the user to login
+                                //add the new message
+                                p.html(html+'You need to login to be able to save your work.');
+                                //call the dialog    
+                                $('#dialog-info').dialog("open");                                
+                            }
+                                
+                        }
+                    });
+                });
+                
+                $('#htmlSelect, #cssSelect').click(function(event){
+                    event.preventDefault();
+                    $(this).parent('h2').next('textarea').select();
                 });
                 
              

@@ -31,8 +31,8 @@ body{
     
 }
 #header-logo{
-    float: left;
-    padding-left: 20px;
+    /*float: left;*/
+    /*padding-left: 20px;*/
     line-height: 42px;
     font-family: 'Labster', serif;
     font-size: 30px;
@@ -40,6 +40,9 @@ body{
     font-style: italic;
     letter-spacing: 1px;
     text-shadow: 1px 1px 1px #AAAAAA;
+    text-align: center;
+    width: 160px;
+    margin: 0 auto;
 }
 #header-wraper{
     margin: auto;
@@ -50,16 +53,25 @@ body{
     position: absolute;
     left: 0;
     top: 0;
+    /*float: left;*/
     width: 400px;
     text-align: center;
 }
 #header-buttons-right{
-    float: right;
+    /*float: right;*/
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 400px;
+    text-align: center;    
 }
 #header-buttons ul, #header-buttons-right ul{
     list-style: none outside none;
     margin: 0;
     padding: 0;
+}
+#header-buttons-right ul{
+    float: right;
 }
 #header-buttons li, #header-buttons-right li{
     display: inline;
@@ -94,11 +106,12 @@ body{
     margin: auto;
 }
 .title{
-    text-align: center;
+    text-align: left;
+    /*padding: 0 10px;*/
     background-color: #E15A00;
     color: #FFFFFF;
 }
-#title h1{
+#title{
     padding: 5px;
 }
 #left-column{
@@ -163,8 +176,9 @@ body{
     height: 100%;
     width: 100%;
     margin: auto;
+    resize: vertical;
 }
-.propertyGroup input,select, .rightColumnContainer input{
+input[type=text], input[type=password], input[type=submit], #htmlSelect, #cssSelect{
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -234,7 +248,7 @@ body{
     margin-top: 10px;
     margin-bottom: auto;
 }
-#buttonSave{
+#buttonSave, #buttonShare, #htmlSelect, #cssSelect{
     float:right;
     margin: 6px 5px 0 0;
 }
@@ -257,25 +271,34 @@ body{
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
-    height: 200px;
-    border: 1px #000000 solid;
+    height: 220px;
+    border: 1px #E1EAFB solid;
 }
-.btnDelete, .btnOpen{
+.elementContainer p{
+    margin: 0;
+    padding: 4px 0 0 4px;
+    background: #0E398B;
+    color: #FFFFFF;
+}
+.btnDelete, .btnOpen, .btnShare{
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    position: absolute;   
+    margin: 2px;    
 }
-
-.btnOpen{
-    position: absolute;
+.btnShare{
+    top: 0;
+    left: 0;
+}
+.btnDelete{
     right: 0;
     bottom: 0;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
-.btnDelete{
-    position: absolute;
+.btnOpen{
     bottom: 0;
     float: left;
     border-radius: 5px;
@@ -290,7 +313,6 @@ body{
     cursor: default;
     color: buttontext;
     padding: 1px 6px;
-    margin: 2px;
     border: 2px outset buttonface;
     background-color: buttonface;
 
@@ -354,7 +376,8 @@ body{
     margin: 10px auto;
     box-shadow: 2px 2px 5px #888888;
 }
-#savePageMsg input[type=submit]{
+.ctrlBtn{
+    width: 70px;
     height: 30px;
     background-color: #0E398B;
     color: #FFFFFF;
@@ -366,14 +389,14 @@ body{
     -moz-border-radius: 5px 5px 5px 5px;
     text-align: center;
     box-shadow: 2px 2px 5px #888888;
-    margin-left: 15px;
+    margin: 0 15px;
 }
-#backButton:active, #savePageMsg input[type=submit]:active{
+#backButton:active, .ctrlBtn:active{
     position: relative;
     top: 1px;
     left: 1px;
 }
-#backButton:hover, #savePageMsg input[type=submit]:hover{
+#backButton:hover, .ctrlBtn:hover{
     color: yellowgreen;
 }
 
@@ -385,5 +408,68 @@ body{
     padding: 0 0 5px 20px;
 }
 
+#loginInfo{
+    width: 996px;
+    padding: 60px 0;
+}
+#loginInfo input{
+    margin-bottom: 20px;
+}
+#userName, #password, #passwordConfirm{
+    width: 200px;
+    height: 22px;
+    text-align: center;
+}
+#message{
+    line-height: 2;
+    font-size: 120%;
+    color: red;
+}
 
+.redBorder{
+    border-color: #FF0000;
+}
 
+.thumbsup{
+    color: green;
+    font-family: FontAwesome;
+    /*right: 0;*/
+    float: left;
+    /*bottom: 0;*/
+    margin: 0 2px 3px 0;
+    display: block;
+    text-decoration: none;
+    /*position: absolute;*/
+    
+}
+.thumbsup:hover{
+    color: #1DF024;
+    font-size: 110%;
+}
+.thumbsup:active{
+    /*color: red;*/
+}
+.counter{
+    color: #0E398B;
+    float:right;
+    margin: 0 2px 0 2px;
+    line-height: 20px;
+/*    position: absolute;
+    bottom: 0;
+    right: 0    ;*/
+}
+.voteContainer{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.disabled-link{
+    pointer-events: none;
+    color: #0E398B;
+    }
+/*custom settings for ui dialog*/
+/*.ui-dialog-titlebar, .ui-dialog-title, ui-widget-header{
+    background-image: #0E398B;
+    background: #0E398B;
+}*/

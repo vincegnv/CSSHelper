@@ -1,9 +1,7 @@
 <!--
 author: Vince Ganev
 -->
-        <div class="title">
-            <h1>Button Generator</h1>
-        </div>
+
         <div id="left-column">
 
             <div class="propertyGroup" id="size">
@@ -70,7 +68,7 @@ author: Vince Ganev
                         <div class="groupWraper floatRight">
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Font:&nbsp;</label>
                             <select id="buttonFont" class="property">
-                                <option value="Ariel" <?=(isset($acss)&&$acss['font-family']=='Arial')?'selected':'' ?>>Ariel</option>
+                                <option value="Arial" <?=(isset($acss)&&$acss['font-family']=='Arial')?'selected':'' ?>>Arial</option>
                                 <option value="Courier New" <?=(isset($acss)&&$acss['font-family']=='CourierNew')?'selected':'' ?>>Courier New</option>
                                 <option value="Georgia" <?=(isset($acss)&&$acss['font-family']=='Georgia')?'selected':'' ?>>Georgia</option>
                                 <option value="Helvetica" <?=(isset($acss)&&$acss['font-family']=='Helvetica')?'selected':'' ?>>Helvetica</option>
