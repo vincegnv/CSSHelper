@@ -92,8 +92,8 @@ function putOnTop(div){
         $('.propertyGroup').eq(index-1).insertAfter(div);        
         index--;
     }
-    //close the divs that are open after the third div
-    for(var i = 3; i<$('.propertyGroup').length; i++){
+    //close the divs that are open after the second div
+    for(var i = 2; i<$('.propertyGroup').length; i++){
         if($('.propertyGroup').eq(i).is(':visible')){
             closeDiv($('.propertyGroup').eq(i).find('span').first());
         }

@@ -8,11 +8,11 @@ author: Vince Ganev
             require('../Templates/header.php');
         ?>
 
-<div id="dialog-info" title="Message">
+<div id="dialog-info" title="Message" style="display:none">
     <p></p>
 </div>
 
-<div id="dialog-choice" title="What to do?">
+<div id="dialog-choice" title="What to do?" style="display:none">
     <p>
         <span class="ui-icon ui-icon-copy" style="float:left; margin:0 7px 20px 0;"></span>
         The item was opened in your library. Do you want to save over or save as a new item?
@@ -29,9 +29,11 @@ author: Vince Ganev
                 $element = query("SELECT * FROM htmlcsslib WHERE id={$_GET['id']}");
                 //saves the id of the element that is opened from the library to the SESSION
                 //if it is opened by its creator
-                $creatorname = query("SELECT * FROM users WHERE userid={$element[0]['userid']}")[0]['username'];
+                $userid = $element[0]['userid'];
+                $result = query("SELECT * FROM users WHERE userid=$userid");
+                $creatorname = $result[0]['username'];
                 if(isset($_SESSION['username']) && $_SESSION['username'] == $creatorname){
-                    $_SESSION['fromLibrary'] = $_GET['id'];
+                    $_SESSION['fromLibrary'] = $_GET['id']; 
                 } else{
                     unset($_SESSION['fromLibrary']);
                 }
@@ -364,7 +366,10 @@ author: Vince Ganev
                             }
                         }
                     });            
-                });                 
+                });   
+                
+                //make the dialogs visible, since they are not when the page loads, needed for slow loading, otherwise you get a glimse at them whiel loading
+                $("#dialog-choice, #dialog-info").css('display', 'block');
                 
                 //ajax for save
                 $('#buttonForm').submit(function(event){

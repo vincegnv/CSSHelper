@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["action"]) && isset($_POST
             //delete the item
             if(query("DELETE FROM htmlcsslib WHERE id=$id")!==false){
                 //delete the votes for this item
-                query("DELETE FROM votes WHERE id=$id");
+                query("DELETE FROM votes WHERE itemid=$id");
                 echo 'success';
             } else{
                 echo 'error';

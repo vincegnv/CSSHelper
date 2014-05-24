@@ -5,14 +5,14 @@
     require('../Templates/header.php');
 ?>
 
-<div id="dialog-delete" title="Delete confirmation">
+<div id="dialog-delete" title="Delete confirmation" style="display:none">
     <p>
         <span class="ui-icon ui-icon-trash" style="float:left; margin:0 7px 20px 0;"></span>
         The item will be permanently deleted and cannot be recovered. Are you sure?;
     </p>
 </div>
 
-<div id="dialog-info" title="Share limit reached">
+<div id="dialog-info" title="Share limit reached" style="display:none">
     <p>
         <span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>
         You have reached the limit for shared items (<?=SHARELIMIT?>). 
@@ -125,6 +125,9 @@
                 }
             });            
         });
+        
+        //make the dialogs visible, since they are not when the page loads, needed for slow loading, otherwise you get a glimse at them whiel loading
+        $("#dialog-choice, #dialog-info").css('display', 'block');        
         
         $(document).on('click','input[type=submit]', function(event){
 //            event.preventDefault();
